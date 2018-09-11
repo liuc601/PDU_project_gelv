@@ -1,0 +1,74 @@
+<div class="col-md-3 left_col" id="nav-left">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <!-- 跳转至格律公司的官网 -->
+            <a target="_about" href="http://www.gelupower.com/" class="site_title">
+                <!-- <i class="fa fa-paw"></i>
+                    <span>Gelu Power!</span> -->
+                <img src="images/gelv-left-logo-1.png" alt="">
+                <span>
+                    <img src="images/gelv-left-logo-2.png" alt="">
+                </span>
+            </a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+                <img v-if="user.userImg" :src="user.userImg" alt="..." class="img-circle profile_img">
+                <img v-else src="images/default-photo.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+                <span>Welcome,</span>
+                <h2 v-if="user.userName">{{user.userName}}</h2>
+                <h2 v-else>none</h2>
+            </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br>
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section active">
+                <h3></h3>
+
+                <ul class="nav side-menu">
+                    <li :class="{active: menu.selected}" v-for="menu in menus" v-if="menu.access >= user.access"
+                        :data-menu="menu.access" :data-user="user.access">
+                        <a @click="menuClick(menu, menus, $event)"><i class="fa" :class="[menu.icon]"></i>
+                            {{menu.title}} <span class="fa fa-chevron-down" v-if="menu.children && menu.children.length > 0"></span></a>
+                        <tr-slide-updown @slide="slideDone">
+                            <ul class="nav child_menu" v-show="menu.selected" style="display: block">
+                                <li :class="{'current-page': cmenu.selected}" v-for="cmenu in menu.children" v-if="cmenu.access >= user.access">
+                                    <a @click="subMenuClick(cmenu, menu.children)" :href="'#' + menu.path + '/' + cmenu.path">{{cmenu.title}}</a>
+                                </li>
+                            </ul>
+                        </tr-slide-updown>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout" @click="loginOut">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+    </div>
+</div>

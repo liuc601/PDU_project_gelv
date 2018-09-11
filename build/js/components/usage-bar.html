@@ -1,0 +1,15 @@
+<div class="row usage-bar">
+    <template v-if='prompt'>
+        <div class="col-md-10 col-sm-10 col-xs-12" style="padding-left: 0px">
+            <status-bar :percentage="value" :color="color"></status-bar>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-12" style="margin-left: -10px">
+            {{max.max + unit}}
+        </div>
+    </template>
+    <template v-else>
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px">
+            <status-bar :percentage="value" :color="color"></status-bar>
+        </div>
+    </template>
+</div>

@@ -1,0 +1,5 @@
+<div>
+    <!-- 这个组件是显示当前状态的 -->
+    <span class="label" :class="{'label-success': state === 'Off', 'label-warning': state === 'On'}" style="padding-left: 10px; padding-right: 10px">{{state}}</span>
+    <span v-if="locked"><i class="fa fa-lock" aria-hidden="true"></i></span>
+</div>

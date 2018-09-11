@@ -1,0 +1,9 @@
+<!-- 主页面的html文档 -->
+<div class="main_container">
+    <ml-navleft :bus="bus" :menus="menus" :user="user"></ml-navleft>
+    <ml-navtop :bus="bus" :user="user"></ml-navtop>
+    <div class="right_col" role="main" :style="[minHeight]">
+        <router-view></router-view>
+    </div>
+    <ml-footer :bus="bus"></ml-footer>
+</div>

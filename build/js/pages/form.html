@@ -1,0 +1,4 @@
+<x-panel :showTitle="false" :addClass="'no-border'">
+    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+    <form-action @cancel="onCancelClick" @apply="onApplyClick"></form-action>
+</x-panel>

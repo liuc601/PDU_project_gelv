@@ -1,0 +1,8 @@
+<div>
+    <div class="row" style="text-align: center;"><label style="font-size: 40px">{{status.current}}</label> <span>A</span></div>
+    <div class="row" style="margin-bottom: 10px">
+        <status-bar :percentage="percentage" :color="color"></status-bar>
+    </div>
+    <div class="row">Current Capacity: {{status.max}} <span>A</span></div>
+    <div class="row">{{status.prompt}}: {{status.voltage}} <span>V</span></div>
+</div>

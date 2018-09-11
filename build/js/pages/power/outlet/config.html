@@ -1,0 +1,51 @@
+<div>
+    <x-panel :showTitle="false" :addClass="'no-border'">
+        <!--div class="row">
+            <div class="col-md-5 col-sm-5 col-xs-12 x-label"><label>State Changing Logging</label></div>
+            <div class="col-md-7 col-sm-7 col-xs-12 x-value"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-sm-5 col-xs-12 x-label"><label>Sequence Interval</label></div>
+            <div class="col-md-7 col-sm-7 col-xs-12 x-value"><input type="text" v-model="seqInterval"></input><span style="margin-left: 10px">Unit: Second</span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-sm-5 col-xs-12 x-label"><label>Cycle Delay</label></div>
+            <div class="col-md-7 col-sm-7 col-xs-12 x-value"><input type="text" v-model="cycleDelay"></input><span style="margin-left: 10px">Unit: Second</span></div>
+        </div>
+    </x-panel>
+    <x-panel :title="'Unit Outlet Options'" :addClass="'no-border'">
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-md-5 col-sm-5 col-xs-12 x-label"><label>Selected Group</label></div>
+            <div class="col-md-7 col-sm-7 col-xs-12 x-value">
+                <select v-model="selectGroup">
+                    <option :value="item.value" v-for="item in groups">{{item.text}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <datatable :datas="datas" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+                <div slot="toolbar">
+                    <button class="btn btn-default btn-xs"><i class="fa fa-undo"></i> Reset Active Energy </button>
+                </div>
+            </datatable>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 col-sm-5 col-xs12 x-opera" style="text-align:right;">
+                <button type="button" class="btn btn-primary btn-sm">Cancel</button>
+            </div>
+            <div class="col-md-7 col-sm-7 col-xs12 x-opera">
+                <button type="button" class="btn btn-success btn-sm">Apply</button>
+            </div>
+        </div-->
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+        <datatable :choiseData="choiseData" :datas="datas" :edit="editData" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+            <div slot="toolbar">
+                <button class="btn btn-default btn-xs" @click="reset">
+                    <i class="fa fa-undo"></i> Reset Active Energy </button>
+            </div>
+        </datatable>
+        <form-action @cancel="onCancelClick" @apply="onApplyClick"></form-action>
+    </x-panel>
+</div>

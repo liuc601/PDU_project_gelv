@@ -1,0 +1,127 @@
+<div class="top_nav">
+    <div class="nav_menu">
+        <nav>
+            <div class="nav toggle" style="width: 55px;">
+                <a id="menu_toggle" @click="menuTrigger">
+                    <i :class="menuToggleIcon"></i>
+                </a>
+            </div>
+            <div class="project-msg">
+                <img class="project-msg-img" src="../../images/pdu-top-logo.png" alt="">
+                <ul class="project-msg-ul">
+                    <li>Model:{{sysinfo.model}}</li>
+                    <li>Firmware:{{sysinfo.fwVersion}}</li>
+                </ul>
+            </div>
+            <!-- <div class="project-msg">
+                <ul class="project-msg-ul">
+                    <li>当前在线用户:{{user.userName}}</li>
+                </ul>
+            </div> -->
+
+            <ul class="nav navbar-nav navbar-right" style="width:40%;">
+                <li class="">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img v-if="user.userImg" :src="user.userImg" alt="">
+                        <img v-else src="images/default-photo.jpg" alt="">{{user.userName}}
+                        <span class=" fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right" style="min-width:103px;">
+                        <!-- <li>
+                            <a href="javascript:;"> Profile</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="badge bg-red pull-right">50%</span>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">Help</a>
+                        </li> -->
+                        <li>
+                            <span @click="loginOut">
+                                <!-- <a @click="loginOut" style="padding-left:12px;padding-right:12px;"> -->
+                                <i class="fa fa-sign-out pull-right"></i> loginOut
+                            </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 消息功能不需要 -->
+                <!-- <li role="presentation" class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">6</span>
+                    </a>
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                                <span class="image">
+                                    <img src="images/img.jpg" alt="Profile Image">
+                                </span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="image">
+                                    <img src="images/img.jpg" alt="Profile Image">
+                                </span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="image">
+                                    <img src="images/img.jpg" alt="Profile Image">
+                                </span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="image">
+                                    <img src="images/img.jpg" alt="Profile Image">
+                                </span>
+                                <span>
+                                    <span>John Smith</span>
+                                    <span class="time">3 mins ago</span>
+                                </span>
+                                <span class="message">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where...
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                                <a>
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li> -->
+            </ul>
+        </nav>
+    </div>
+</div>

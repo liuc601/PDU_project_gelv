@@ -1,0 +1,58 @@
+<x-panel :title="'System Infomation'" :wrapClass="'col-md-6 col-sm-6 col-xs-12 ov-sysinfo-style-control'">
+    <div class="widget_status">
+        <div class="widget_summary">
+            <div class="w_left w_25">
+                <span>Model</span>
+            </div>
+            <div class="w_center w_50">
+                <span>{{sysinfo.model}}</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget_summary">
+            <div class="w_left w_25">
+                <span>Serial Number</span>
+            </div>
+            <div class="w_center w_50">
+                <span>{{sysinfo.serial}}</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget_summary">
+            <div class="w_left w_25">
+                <span>Board ID</span>
+            </div>
+            <div class="w_center w_50">
+                <span>{{sysinfo.boardID}}</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget_summary">
+            <div class="w_left w_25">
+                <span>Firmware Version</span>
+            </div>
+            <div class="w_center w_50">
+                <span>{{sysinfo.fwVersion}}</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget_summary">
+            <div class="w_left w_25">
+                <span>Hardware Revision</span>
+            </div>
+            <div class="w_center w_50">
+                <span>{{sysinfo.hwRevision}}</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget_summary">
+            <div class="w_left w_25">
+                <span>Build Info</span>
+            </div>
+            <div class="w_center w_50">
+                <span>{{sysinfo.fwBuildInfo}}</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</x-panel>

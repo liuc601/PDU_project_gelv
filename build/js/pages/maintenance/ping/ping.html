@@ -1,0 +1,21 @@
+<div>
+
+  <div class="row">
+    <x-panel :wrapClass="'col-md-12 col-sm-12 col-xs-12'" :title="'Enter Host Name or IP Address to Ping'" :addClass="'no-border'">
+      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      <div class="col-md-offset-3 col-sm-offset-3 col-xs-offset-5" style="margin-top: 20px">
+        <div style="margin-left: 10px;">
+            <button class="btn btn-success btn-sm" @click="onApplyClick">Ping</button>
+        </div>
+      </div>
+      <!-- <datatable :datas="datas" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+      </datatable> -->
+      <div class="ping-box">
+        <h3>status</h3>
+        <span v-if="datas.length==0" style="text-align: center;">No Data Available</span>
+        <span v-else v-for="ping in datas">{{ping.status}}</span>
+      </div>
+
+    </x-panel>
+  </div>
+</div>

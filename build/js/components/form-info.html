@@ -1,0 +1,8 @@
+<div class="form-horizontal form-label-left form-info">
+    <div class="form-group" v-for="field in fields">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">{{field.label}}</label>
+        <div class="field-wrap field-wrap-text col-md-6 col-sm-6 col-xs-12">
+            <span>{{model[field.model]}}</span>
+        </div>
+    </div>
+</div>

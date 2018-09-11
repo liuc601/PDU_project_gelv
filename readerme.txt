@@ -1,0 +1,2 @@
+1,将要转发的项目放在project目录下，首页文件必须是index.html
+2,之后要在webpack.config.js文件里面去修改请求的地址和要转发的地址

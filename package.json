@@ -1,0 +1,21 @@
+{
+  "name": "webpack-server-retransmission",
+  "version": "1.0.0",
+  "description": "\"用来做请求的代理转发\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev":"webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://admin@192.168.0.5:29418/web-tool/webpackServerRetransmission.git"
+  },
+  "author": "jie",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}

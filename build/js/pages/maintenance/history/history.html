@@ -1,0 +1,14 @@
+<div>
+  <div class="row">
+    <x-panel :wrapClass="'col-md-12 col-sm-12 col-xs-12'" :title="'History data files'" :addClass="'no-border'">
+      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+      <datatable :datas="datas" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+        <div slot="toolbar">
+          <button class="btn btn-default btn-xs" @click="downloadAll">
+              <i class="fa fa-download" aria-hidden="true"></i> Download All
+          </button>
+        </div>
+      </datatable>
+    </x-panel>
+  </div>
+</div>

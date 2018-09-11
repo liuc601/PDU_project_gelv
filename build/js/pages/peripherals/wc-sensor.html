@@ -1,0 +1,11 @@
+<x-panel :subTitle="sensor.name" :showToolbox="showToolbox" :wrapClass="wrapClass" :heightClass="heightClass" :addClass="addClass">
+    <template slot="toolbox">
+        <!-- <button class="btn btn-default btn-xs" @click="onEditClick(sensor)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button> -->
+    </template>
+
+    <div :class="color"><label style="font-size: 40px">{{sensor.status}}</label>
+    </div>
+
+    <div>Position: {{sensor.position}}</div>
+</x-panel>

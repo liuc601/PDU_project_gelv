@@ -1,0 +1,15 @@
+<div>
+    <transition name="fade">
+        <div class="alertDialog" v-show="showDialog" style="">
+            <div class="alertDialog-box">
+                <div class="alertDialog-head">
+                    <span class="alertDialog-head-title">{{title}}</span>
+                    <button type="button" aria-label="Close" class="alertDialog-head-btn" @click="handleClose">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <slot></slot>
+            </div>
+        </div>
+    </transition>
+</div>

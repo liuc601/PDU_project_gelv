@@ -1,0 +1,10 @@
+<div>
+
+	<div class="row">
+		<x-panel :wrapClass="'col-md-12 col-sm-12 col-xs-12'" :title="'Edit or assign access rights to a TACACS+ privilege level'" :addClass="'no-border'">
+			<datatable :datas="datas" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+			</datatable>
+			<form-action @cancel="onCancelClick" @apply="onApplyClick"></form-action>
+		</x-panel>
+	</div>
+</div>

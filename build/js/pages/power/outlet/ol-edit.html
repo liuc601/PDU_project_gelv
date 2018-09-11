@@ -1,0 +1,37 @@
+<div class="x_panel x_panel-div-style-control" style="border: 0;">
+    <x-panel :title="this.model.name" :addClass="'no-border'" :showToolbox="true">
+        <button slot="toolbox" class="btn btn-default btn-xs" @click="onReturn"> <i class="fa fa-mail-reply"
+                aria-hidden="true"></i> Return </button>
+        <vue-form-generator class="vue-form-style-Control col-md-3 col-sm-3 col-xs-12" :schema="infoSchema" :model="model"
+            :options="formOptions"></vue-form-generator>
+        <x-panel v-for="(item, index) in eStatus" :title="item.title" :wrapClass="'col-md-3 col-sm-3 col-xs-12 x-panel-style-control'"
+            :heightClass="''" :addClass="'no-border'">
+            <ol-status :status="eStatus[index]"></ol-status>
+        </x-panel>
+    </x-panel>
+    <!-- 这边是第二个表格，显示详情数据页的 -->
+    <div class="x_panel" style="border: 0;">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+        <datatable v-if="model.accessConfig==1" cptType='hl' ref="powerOutletsEdit" :datas="threshDatas" :edit="editData" :choiseData="choiseData"
+            :showFooter="false" :loadOnStart="false" :showDelButton="false" :showAddButton="false">
+            <div v-if="model.accessCtrl==1" slot="toolbar">
+                <button class="btn btn-default btn-xs" @click="resetOutletThresh">
+                    <i class="fa fa-undo" aria-hidden="true"></i> Restore PDU Defined
+                </button>
+            </div>
+        </datatable>
+        <datatable2 v-else :datas="threshDatas" :showFooter="false" :loadOnStart="false" :showDelButton="false" :showAddButton="false">
+            <div v-if="model.accessCtrl==1" slot="toolbar">
+                <button class="btn btn-default btn-xs" @click="resetOutletThresh">
+                    <i class="fa fa-undo" aria-hidden="true"></i> Restore PDU Defined
+                </button>
+            </div>
+        </datatable2>
+        <form-action @cancel="onCancelClick" @apply="onApplyClick"></form-action>
+    </div>
+    <div>
+        <legend>Outlet history</legend>
+        <vue-form-generator :schema="chartSchema" :model="chartModel"></vue-form-generator>
+        <line-chart :chart-data="chart"></line-chart>
+    </div>
+</div>

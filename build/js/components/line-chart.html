@@ -1,0 +1,6 @@
+<div style="position:relative">
+    <div style="position:absolute; right: 20px; top: 20px; z-index:2000" v-if="$slots.toolbox">
+        <slot name="toolbox"></slot>
+    </div>
+    <chart :chart-data="chartData" :options="chartData.options" ></chart>
+</div>

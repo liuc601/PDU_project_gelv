@@ -1,0 +1,7 @@
+<div class="table-toolbar" style="margin-left: 10px">
+    <button :class="editClass" @click="toolbarAction('add')" v-if="showAddButton" :disabled="!enableAddButton">
+        <i class="fa fa-plus-square-o" aria-hidden="true"></i> Add</button>
+    <button :class="delClass" @click="toolbarAction('del')" v-if="showDelButton" :disabled="!enableDelButton">
+        <i class="fa fa-trash-o" aria-hidden="true"> Delete</i></button>
+    <slot></slot>
+</div>

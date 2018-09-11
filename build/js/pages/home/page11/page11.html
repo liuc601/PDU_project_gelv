@@ -1,0 +1,67 @@
+<x-page :title="'test'">
+    <x-panel :title="'datatable'">
+        <datatable :showFooter="true" :showToolbar="true" :dataProcess="dataProcess" :url="url">
+            <div slot="toolbar"><label>Toolbar</label></div>
+        </datatable>
+    </x-panel>
+
+    <x-panel :title="'vue-form'">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+    </x-panel>
+
+    <x-panel :title="'test'">
+        <!--
+        <div class="inline-ctrl">
+            <div style="position:relative" :style="{width: textWidth + 20 + 'px'}">
+                <input v-model="inputVal" type="text" style="width: 100%;padding-left:5px; padding-right: 5px;border: 0"></input><span style="position:absolute;right: 0px">W</span>
+            </div>
+        </div>
+        <span ref="widthSpan" style="display: none">{{inputVal}}</span>
+        <span>{{textWidth}}</span>
+-->
+        <div style="width: 300px;height: 100px; border:solid 1px; border-color:red; position:relative">
+            <div style="width: 50%; height: 50%; background-color: white"> WWWWWWWW </div>
+        </div>
+    </x-panel>
+
+    <x-panel :title="'test1'" :subTitle="'xxxxx test'">
+        <usage-bar :prompt="test1.prompt" :current="test1.value" :max="test1.max" :range="test1.range" :unit="test1.unit"></usage-bar>
+        <div style="margin-top: 30px">
+            <label>Unit:</label><input type="text" v-model="test1.unit">
+            <label>Current:</label><input type="text" v-model="test1.value">
+            <label>Max:</label><input type="text" v-model="test1.max">
+            <label>Prompt:</label><input type="checkbox" v-model="test1.prompt">
+        </div>
+    </x-panel>
+
+    <x-panel :title="'watch test'">
+        {{wt.data}}<br/>
+        <button @click="onWTClick" class="btn btn-default">Change Data</button>
+        <label>a:</label><input type="text" v-model="wt.data.labels[0]"></input><br/>
+        <label>b:</abbel><input type="text" v-model="wt.data.b[0].a[2]"></input><br/>
+
+        <div v-for="log in wt.logs">{{log}}</div>
+
+    </x-panel>
+
+    <x-panel :title="'switch'">
+        <x-switch v-model="checked"></x-switch>
+        {{checked}} <br/>
+        <button class="btn btn-primary btn-sm" @click="onToggleClick">Toggle</button>
+    </x-panel>
+
+    <div>
+        <label>current:</label><input type="text" v-model="test2.status.current"></input>
+        </div>
+        <status-panel :subStyle="{color: 'inherit'}" :subTitle="'normal test2'" :status="test2.status" :wrapClass="'col-md-4 col-sm-4 col-xs-12'">
+            <template slot="toolbox">
+                <button class="btn btn-default btn-xs" @click="onEditClick">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+            </template>
+            <template slot="append">
+                <div v-for="item in test2.appends">
+                    {{item.title}}: {{item.value}}
+                </div>
+            </template>
+        </status-panel>
+</x-page>

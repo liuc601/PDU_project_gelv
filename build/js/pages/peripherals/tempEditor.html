@@ -1,0 +1,32 @@
+<x-panel :showTitle="false">
+    <x-panel :title="sensor.name" :addClass="'no-border'" :showToolbox="true" >
+        <button slot="toolbox" class="btn btn-default btn-xs" @click="onPanelClose"> <i class="fa fa-mail-reply" aria-hidden="true"></i> Return </button>
+        <x-panel :subTitle="'Sensor Infomation'" :addClass="'no-border'">
+            <div class="row">
+                <slot name="status"></slot>
+            </div>
+            <form-info :model="sensor" :fields="fields" style="padding-left: 60px"></form-info>
+        </x-panel>
+        <x-panel :subTitle="'Sensor History'" :addClass="'no-border'">
+            <line-chart :chart-data="chart">
+                <button slot="toolbox" class="btn btn-default btn-xs" @click="onRefreshClick"> Refresh </button>
+            </line-chart>
+        </x-panel>
+        <x-panel :subTitle="'Sensor Settings'" :addClass="'no-border'">
+            <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+
+            <x-panel :subTitle="'Configure Thresholds'" :addClass="'no-border'">
+                <datatable cptType='hl' :datas="datas" :edit="editData" :choiseData="choiseData" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+                    <div slot="toolbar">
+                        <button class="btn btn-default btn-xs" @click="resetSensorThresh">
+                            <i class="fa fa-undo" aria-hidden="true"></i> Restore PDU Defined
+                        </button>
+                    </div>
+                </datatable>
+                <form-action @cancel="onCancelClick" @apply="onApplyClick"></form-action>
+            </x-panel>
+
+        </x-panel>
+
+    </x-panel>
+</x-panel>

@@ -1,0 +1,47 @@
+<div>
+    <x-panel v-if="!editMode" :title="'Outlet Status'" :addClass="'no-border'">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+        <div class="row">
+            <datatable :choiseData="choiseData" :datas="datas" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+                <!-- 该datatable使用的是slot，以下的html代码是用户自己配置的东西 -->
+                <!-- 这个是表格头部 -->
+                <div slot="toolbar">
+                    <span style="margin-right: 10px">Control Actions:</span>
+                    <button class="btn btn-default btn-xs" @click="dealAll('on')"> On </button>
+                    <button class="btn btn-default btn-xs" @click="dealAll('off')"> Off </button>
+                    <button class="btn btn-default btn-xs" @click="dealAll('cycle')"> Cycle </button>
+                    <button class="btn btn-default btn-xs" @click="openGroup"> Create Group </button>
+                </div>
+                <!-- 当前行尾部的按键操作 -->
+                <template slot="detailLink" scope="props">
+                    <!-- 编辑按钮 -->
+                    <span style="color:#3e5dff;cursor:pointer;" @click="itemAction($event,'edit', props)">
+                        {{props.rowData.name}}</span>
+                </template>
+                <template slot="actions" scope="props">
+                    <div v-if="props.rowData.accessCtrl==1" class="table-action">
+                        <!-- action按钮 -->
+                        <x-switch @click.native="itemAction($event,'turn', props)" v-model="props.rowData.state"></x-switch>
+                        <!-- 重置按钮 -->
+                        <button class="btn btn-default btn-xs" @click="itemAction($event,'cycle', props)" style="margin-left: 5px">
+                            <i class="fa fa-refresh" aria-hidden="true"> Cycle</i>
+                        </button>
+                        <!-- 编辑按钮 -->
+                        <!-- <button class="btn btn-default btn-xs" @click="itemAction($event,'edit', props)">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button> -->
+                    </div>
+                </template>
+            </datatable>
+        </div>
+    </x-panel>
+    <div class="modal fade myModal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog" role="document" style="margin-top: 60px">
+            <div class="modal-content" style="padding-top: 20px">
+                <vue-form-generator :schema="Groupschema" :model="Groupmodel" :options="formOptions"></vue-form-generator>
+                <form-action @cancel="groupCancel" @apply="groupApply"></form-action>
+            </div>
+        </div>
+    </div>
+    <component :is="outletEditor" :outlet="outletEditing" v-if="editMode" @exit="onEditExit">
+    </component>
+</div>
