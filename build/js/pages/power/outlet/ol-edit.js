@@ -428,12 +428,14 @@ define(function (require) {
                             model: 'state',
                         }, {
                             type: "label",
-                            label: 'Voltage',
+                            label: '',
                             model: 'voltage',
+                            styleClasses:"font18px"
                         }, {
                             type: "label",
-                            label: 'Frequency',
+                            label: '',
                             model: 'frequency',
+                            styleClasses:"font18px"
                         }, {
                             type: "label",
                             label: 'Power Factor',

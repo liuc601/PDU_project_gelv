@@ -54,10 +54,10 @@
 
 
 
-1，power/inlet/status，Line status数值靠左
+//1，power/inlet/status，Line status数值靠左
 2，/power/inlet/status ，频率没有自动刷新，大于当前值的，需要手动刷新，小于当前值的，需要重启浏览器
 3，/power/inlet/status  Line status   电流的位数没有修改
 4，/power/inlet/status   Phase status  的电流跟 Line status的电流显示不一致，Phase status的电流小数位都变成了00
 5，/power/inlet/status    Power Factor的小数位要显示后两位
-6，/power/inlet/status Line status ，三个的时候显示有问题，要排在一排
+//6，/power/inlet/status Line status ，三个的时候显示有问题，要排在一排
 

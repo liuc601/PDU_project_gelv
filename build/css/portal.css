@@ -408,6 +408,12 @@ button[name=recycleing].btn-default:focus {
     display: inline-block;
     padding-left: 0px;
 }
+.vue-form-style-Control .font18px{
+    font-size:18px;
+}
+.vue-form-style-Control .font18px .field-wrap span{
+    margin-left:0px;
+}
 
 .vue-form-style-Control .field-switch .field-wrap {
     display: inline-block;
