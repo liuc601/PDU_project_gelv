@@ -480,7 +480,7 @@ button[name=recycleing].btn-default:focus {
     height:100%;
 }
 .inlet-line-status-style-contorl{
-    float: none;
+    /* float: none; */
     display:block;
     margin:0 auto;
 }

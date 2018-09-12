@@ -335,6 +335,9 @@ define(function (require) {
                         }
                     }]
                 }
+            },
+            isFloat:function(){
+                return this.lines.length==1?'none':'left';
             }
         },
         mounted: function () {
