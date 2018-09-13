@@ -774,7 +774,7 @@ define(function (require) {
                             }
                             break;
                         case "Current":
-                            item.value = item.value + "KA"
+                            item.value = item.value + "A"
                             break;
                         case "Voltage":
                             item.value = item.value + "v"

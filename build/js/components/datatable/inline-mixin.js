@@ -29,10 +29,6 @@ define(function (require) {
             };
         },
         mounted: function () {
-            // console.log(this);
-            if (this.cptType == 'hl') {
-
-            }
             var field = this.rowField.sortField;
 
             field = (field === undefined) ? this.rowField.name.split(':')[2] : field;
@@ -50,7 +46,7 @@ define(function (require) {
             fireEvent: function (event) {
                 this.$parent.$emit(this.eventPrefix + 'change', this.rowIndex, this.field, this.value);
             },
-            contextReset: function () {
+            contextReset: function () {//对电压的数据进行特殊处理，可能没用
                 this.isModified = false;
                 var showType = this.rowData.showType;
                 var cptType = this.$parent.$parent.cptType;

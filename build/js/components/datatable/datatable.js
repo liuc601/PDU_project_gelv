@@ -228,7 +228,6 @@ define(function (require) {
                     console.log('Change Page...', page);
                 },
                 onTableActionEdit: function (action, index, data) {
-                    console.log("是这个正在修改吗？", action, index, data);
                     var vm = this;
                     vm.editAction(index);
                 },

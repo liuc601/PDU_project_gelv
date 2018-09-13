@@ -172,8 +172,18 @@ define(function (require) {
                             if (lowAlarm == '-') {
                                 return;
                             }
-                            if (val - h < lowAlarm) {
-                                errStr = field + " -  hysteresis must be greater or equal to lowAlarm"
+                            //必须保证high和low之间的差值是两倍回差，所以当前正在修改是highWarning或者highAlarm时，
+                            //往下判断时，lowWarning被跳过了，到了lowAlarm这里时，必须保证还是减去两倍的回差值
+                            if (field == 'highWarning' || field == 'highAlarm') {
+                                if (val - 2 * h < lowAlarm) {
+                                    errStr = field + " -  2 * hysteresis must be greater or equal to lowAlarm"
+                                }
+
+                            } else {
+                                if (val - h < lowAlarm) {
+                                    errStr = field + " -  hysteresis must be greater or equal to lowAlarm"
+                                }
+
                             }
                             break;
                         case 'min':
@@ -235,12 +245,25 @@ define(function (require) {
                                 }
                                 val = highWarning;
                             }
-                            if (val + h > highAlarm) {
-                                if (nowField == 'hysteresis') {
-                                    errStr = "highWarning + hysteresis must be less than or less than to highAlarm";
-                                    return
+                            //必须保证high和low之间的差值是两倍回差，所以当前正在修改是lowWarning或者lowAlarm时，
+                            //向上判断时，highWarning被跳过了，到了highAlarm这里时，必须保证还是加上两倍的回差值
+                            if (field == 'lowWarning' || field == 'lowAlarm') {
+                                if (val +2* h > highAlarm) {
+                                    if (nowField == 'hysteresis') { //只是对要显示的名字做判断和处理
+                                        errStr = "highWarning + 2*hysteresis must be less than or less than to highAlarm";
+                                        return
+                                    }
+                                    errStr = field + " +  hysteresis must be less than or equal to highAlarm"
                                 }
-                                errStr = field + " +  hysteresis must be less than or equal to highAlarm"
+                            } else {
+                                if (val + h > highAlarm) {
+                                    if (nowField == 'hysteresis') { //只是对要显示的名字做判断和处理
+                                        errStr = "highWarning + hysteresis must be less than or less than to highAlarm";
+                                        return
+                                    }
+                                    errStr = field + " +  hysteresis must be less than or equal to highAlarm"
+                                }
+
                             }
                             break;
                         case 'max':
@@ -253,6 +276,8 @@ define(function (require) {
                 }.bind(this));
                 if (errStr != '') {
                     if (nowField == field) {
+                        this.addErrMsg(errStr);
+                    } else if (this.alarmTxt != '') { //如果已经有错误的提示，就覆盖原本的
                         this.addErrMsg(errStr);
                     }
                 } else {

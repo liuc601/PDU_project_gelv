@@ -156,7 +156,6 @@ define(function (require) {
                 if (!this.isTrueValue()) {
                     return;
                 }
-                var names = "_" + this.field;
                 // this.ttt(this.field,this.rowData[names]);
                 this.$parent.$parent.forEachChildrenUpdataView(this.rowData.id, this.field);
             },
