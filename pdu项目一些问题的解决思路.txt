@@ -12,45 +12,6 @@
             ps：如果之后需要根据不同类型的表格进行不同规则的判断，此时需要判断传进来的tablename，然后选择相对应的方法，这个需要写进updataView里面
             用户想要提交的时候，判断datatabe元素的errDataArr数组的长度，如果不为0，说明还有值未修改好。
 
-2,阈值设置规则
-
-    Hysteresis：
-
-
-    low Alert 
-        Lower Alarm - hysteresis must be greater or equal than 0；
-        Lower Alarm + hysteresis must be less than or equal to Lower Warning；
-        翻译后的规则
-        low A - h >= 0;
-        low A + h <= low warring;
-
-    low warring
-        Lower Warning - hysteresis must be greater or equal than 0；
-        Lower Alarm + hysteresis must be less than or equal to Lower Warning；
-        Lower Warning + 2 times hysteresis must be less than or equal to High Warning；
-        翻译后的规则
-        low W - h >= 0;
-        low A + h <= low W
-        low W +2h <= high W;
-
-    high warring
-        High Warning - hysteresis must be greater or equal than 0；
-        Lower Warning + 2 times hysteresis must be less than or equal to High Warning；
-        High Warning + hysteresis must be less than or equal to  High Alarm.
-        翻译后的规则
-        high W - h >=0;
-        low W +2h <=high W;
-        high W +h <=high A0
-
-    high Alert
-        High Alarm - hysteresis must be greater or equal than 0；
-        High Warning + hysteresis must be less than or equal to  High Alarm；
-        High Alarm + hysteresis must be less than or equal to MAX；
-        翻译后的规则
-        High A - h >= 0;
-        High W + h <= High A;(这边应该是减去h，大于等于H W)
-        High A + h <= Max
-
 
 
 
