@@ -7,9 +7,9 @@ const config = {
     },
     devServer: {
         port: 8011,
-        // host: "192.168.10.233",
+        host: "192.168.10.233",
         // host: "192.168.155.233",//尹总公司的机器
-        host: "127.0.0.1",
+        // host: "127.0.0.1",
         useLocalIp: true,//允许使用本地ip打开
         open: false, //是否打开浏览器，
         contentBase: "./build",
