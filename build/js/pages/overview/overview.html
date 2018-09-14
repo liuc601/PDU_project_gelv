@@ -6,8 +6,8 @@
             <span style="position: absolute;right: 10px; top: -45px;">{{subtitle}} W</span>
             <line-chart :chart-data="chart" style="height:319px;"></line-chart>
         </x-panel>
-        <x-panel :title="'Line status'" :wrapClass="'col-md-6 col-sm-6 col-xs-12 line-status-style-contorl'" style="height:232.2px;">
-            <status-table :fields="lineFields" :datas="lines" style="height:100%;"></status-table>
+        <x-panel :title="'Line status'" :wrapClass="'col-md-6 col-sm-6 col-xs-12 line-status-style-contorl'" style="height:223px;margin-bottom:10px;">
+            <status-table :fields="lineFields" :datas="lines"></status-table>
         </x-panel>
         <x-panel :title="'Sensor status'" :wrapClass="'col-md-6 col-sm-6 col-xs-12'">
             <status-table :fields="sensorFields" :datas="sensors"></status-table>

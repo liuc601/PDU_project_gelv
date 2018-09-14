@@ -237,7 +237,7 @@ define(function (require) {
                         unit: sensor_unit,
                         component: 'ov-status-bar',
                         style: {
-                            width: "50%"
+                            width: "40%"
                         },
                         __target: 'value',
                         __color: function (row, field) {
