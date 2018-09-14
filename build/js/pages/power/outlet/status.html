@@ -15,7 +15,7 @@
                 <!-- 当前行尾部的按键操作 -->
                 <template slot="detailLink" scope="props">
                     <!-- 编辑按钮 -->
-                    <span style="color:#3e5dff;cursor:pointer;" @click="itemAction($event,'edit', props)">
+                    <span class="blue" style="cursor:pointer;" @click="itemAction($event,'edit', props)">
                         {{props.rowData.name}}</span>
                 </template>
                 <template slot="actions" scope="props">
