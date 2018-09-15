@@ -593,7 +593,7 @@ define(function (require) {
                                     if (!!~types.indexOf('activePower') || !!~types.indexOf('apparentPower') || !!~types.indexOf('current')) {
                                         this.chartOptions.scales.yAxes[0].ticks = {
                                             beginAtZero: true,
-                                            max: parseInt(max * 1.25),
+                                            max: parseInt((max /0.8).toFixed(2)),
                                             min: 0,
                                         };
                                     } else if (!!~types.indexOf('voltage')) {
@@ -603,6 +603,12 @@ define(function (require) {
                                             min: 0,
                                         };
                                     }
+                                }else{
+                                    this.chartOptions.scales.yAxes[0].ticks = {
+                                        beginAtZero: true,
+                                        max: 1,
+                                        min: 0,
+                                    };
                                 }
                                 this.chartData.time = [];
                                 this.chartData.value = [];
@@ -740,7 +746,7 @@ define(function (require) {
                         if (!!~types.indexOf('activePower') || !!~types.indexOf('apparentPower') || !!~types.indexOf('current')) {
                             this.chartOptions.scales.yAxes[0].ticks = {
                                 beginAtZero: true,
-                                max: parseInt(max * 1.25),
+                                max: parseInt((max /0.8).toFixed(2)),
                                 min: 0,
                             };
                         } else if (!!~types.indexOf('voltage')) {
@@ -750,6 +756,12 @@ define(function (require) {
                                 min: 0,
                             };
                         }
+                    }else{
+                        this.chartOptions.scales.yAxes[0].ticks = {
+                            beginAtZero: true,
+                            max: 1,
+                            min: 0,
+                        };
                     }
                     this.chartData.time = [];
                     this.chartData.value = [];

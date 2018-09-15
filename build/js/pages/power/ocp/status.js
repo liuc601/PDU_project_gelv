@@ -320,6 +320,12 @@ define(function (require) {
                             min: 0,
                             // stepSize: 10,
                         }
+                    }else{
+                        this.chartOptions.scales.yAxes[0].ticks = {
+                            beginAtZero: true,
+                            max: 1,
+                            min: 0,
+                        };
                     }
                     this.chartData.time = []
                     this.chartData.value = []
