@@ -31,7 +31,10 @@ define(function (require) {
                 {
                     name: 'activeEnergy',
                     title: 'Active Energy',
-                    callback: 'renderActiveEnergy'
+                    callback: 'renderActiveEnergy',
+                    __normalize: function (obj) {
+                        obj.unit = 'kWh';
+                    }
                 },
                 {
                     name: '__component:inline-text:delay',
@@ -67,8 +70,9 @@ define(function (require) {
             };
         },
         methods: {
-            renderActiveEnergy: function (value) {
-                return value + ' kWh';
+            renderActiveEnergy: function (value, field, item) {
+                var o=this.doValueDigit(field.unit, value, item,true);
+                return  o[0]+" "+o[1];
             }
         }
     };

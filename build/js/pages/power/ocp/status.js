@@ -27,7 +27,10 @@ define(function (require) {
                     {
                         name: 'current',
                         title: 'Current',
-                        callback: 'currentRender'
+                        callback: 'currentRender',
+                        __normalize: function (obj) {
+                            obj.unit = 'A';
+                        },
                     },
                     {
                         // name: '__component:td-usage:maxCurrent',
@@ -74,7 +77,7 @@ define(function (require) {
         methods: {
             currentRender: function (value, field, item) {
                 // console.log(value, field, item);
-                return this.getStatusColor(item[field.name + "Status"], value + ' A');
+                return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, item) + ' A');
                 // return value + ' A';
             },
             setStatus: function (value) {

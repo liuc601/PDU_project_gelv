@@ -33,7 +33,10 @@ define(function (require) {
                     {
                         name: 'current',
                         title: 'Current',
-                        callback: 'renderCurrent'
+                        callback: 'renderWithUnit',
+                        __normalize: function (obj) {
+                            obj.unit = 'A';
+                        },
                     }, {
                         icon: 'fa fa-exclamation-triangle',
                         name: 'activePower',
@@ -95,10 +98,8 @@ define(function (require) {
                 }
             },
             renderWithUnit: function (value, field, item) {
-                return this.getStatusColor(item[field.name + "Status"], value + ' ' + (field.unit == undefined ? '' : field.unit));
-            },
-            renderCurrent: function (value, field, item) {
-                return this.getStatusColor(item[field.name + "Status"], value + ' A');
+                // console.log("renderWithUnit",value, field, item);
+                return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, item) + ' ' + (field.unit == undefined ? '' : field.unit));
             },
         }
     };
@@ -336,8 +337,8 @@ define(function (require) {
                     }]
                 }
             },
-            isFloat:function(){
-                return this.lines.length==1?'none':'left';
+            isFloat: function () {
+                return this.lines.length == 1 ? 'none' : 'left';
             }
         },
         mounted: function () {
@@ -470,8 +471,8 @@ define(function (require) {
                         that.lines.push({
                             name: response.lines[i].id,
                             max: response.lines[i].maxCurrent,
-                            current: response.lines[i].current,
-                            voltage: response.lines[i].voltage,
+                            current: parseFloat(response.lines[i].current).toFixed(2),
+                            voltage: parseFloat(response.lines[i].voltage).toFixed(0),
                             status: response.lines[i].currentStatus,
                             prompt: response.lines[i].voltageName
                         })
@@ -550,61 +551,6 @@ define(function (require) {
                         return 'red';
                         break;
                 }
-            },
-            doValueDigit: function (unit, value, item) { //根据单位处理小数点的位数
-                var Val = 0;
-                switch (unit) {
-                    case 'kW':
-                        Val = this.doNumberDigit(value, 'W', item);
-                        break;
-                    case 'kVA':
-                        Val = this.doNumberDigit(value, 'VA', item);
-                        break;
-                    case 'kWh':
-                        Val = this.doNumberDigit(value, 'Wh', item);
-                        break;
-                    case 'Hz':
-                        if (this.isDot(value)) {
-                            Val = value.toFixed(1);
-                        } else {
-                            Val = value + ".0"
-                        }
-                        break;
-                    case '%':
-                        if (this.isDot(value)) {
-                            Val = parseFloat(value).toFixed(1);
-                        } else {
-                            Val = value + ".0"
-                        }
-                        break;
-                }
-                return Val
-            },
-            isDot: function (value) { //判断是否小数
-                var reg = new RegExp("\\.");
-                return reg.test(value + "");
-            },
-            integerLength: function (value) { //返回整数位的长度
-                var i = (value + "").indexOf(".");
-                return (value + "").slice(0, i).length;
-            },
-            floatLength: function (value) { //返回小数位的长度
-                var i = (value + "").indexOf(".");
-                return (value + "").slice(i + 1).length;
-            },
-            doNumberDigit: function (value, unit, item) { //处理数字的位数
-                var Val;
-                if (this.isDot(value)) {
-                    if (this.integerLength(value) == 1 && this.floatLength(value) >= 3) {
-                        Val = (value * 1000).toFixed(0);
-                        item.unit = unit
-                    } else {
-                        Val = value.toFixed(1);
-                    }
-                } else {
-                    Val = value;
-                }
-                return Val;
             },
             doDataTableNumberDigit: function (item) {
                 item.voltage = parseInt(item.voltage).toFixed(0);

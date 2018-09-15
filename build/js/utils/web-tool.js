@@ -64,18 +64,18 @@ define(function (require) {
           this.splice(index, 1);
         }
       }
-      Array.prototype.getMaxValue = function (attrname/*如果是对象的话，需要计算的属性名*/) {//获取数组中最大的value
-        var max=0;
-        this.forEach(function(item,index){
-            if(attrname!==undefined){
-              if(parseFloat(item[attrname])>max){
-                max=parseFloat(item[attrname]);
-              }
-            }else{
-              if(parseFloat(item)>max){
-                max=parseFloat(item);
-              }
+      Array.prototype.getMaxValue = function (attrname /*如果是对象的话，需要计算的属性名*/ ) { //获取数组中最大的value
+        var max = 0;
+        this.forEach(function (item, index) {
+          if (attrname !== undefined) {
+            if (parseFloat(item[attrname]) > max) {
+              max = parseFloat(item[attrname]);
             }
+          } else {
+            if (parseFloat(item) > max) {
+              max = parseFloat(item);
+            }
+          }
         })
         return max;
       }
@@ -133,7 +133,110 @@ define(function (require) {
         default:
           return value
       }
-    }
+    },
+    doValueDigit: function (unit, value, item,bool) { //根据单位处理小数点的位数
+      var Val = 0;
+      switch (unit) {
+        case 'kW':
+          Val = this.doNumberDigit(value, 'W', item,bool);
+          break;
+        case 'kVA':
+          Val = this.doNumberDigit(value, 'VA', item,bool);
+          break;
+        case 'kWh':
+          Val = this.doNumberDigit(value, 'Wh', item,bool);
+          break;
+        case 'Hz':
+          if (this.isDot(value)) {
+            Val = parseFloat(value).toFixed(1);
+          } else {
+            Val = value + ".0"
+          }
+          break;
+        case 'V':
+          if (this.isDot(value)) {
+            Val = parseFloat(value).toFixed(0);
+          } else {
+            Val = value
+          }
+          break;
+        case 'v':
+          if (this.isDot(value)) {
+            Val = parseFloat(value).toFixed(0);
+          } else {
+            Val = value
+          }
+          break;
+        case '%':
+          if (this.isDot(value)) {
+            Val = parseFloat(value).toFixed(1);
+          } else {
+            Val = value + ".0"
+          }
+          break;
+        case 'A':
+          if (this.isDot(value)) {
+            Val = parseFloat(value).toFixed(2);
+          } else {
+            Val = value + ".00"
+          }
+          break;
+        case 'PF':
+          if (this.isDot(value)) {
+            Val = parseFloat(value).toFixed(2);
+          } else {
+            Val = value + ".00"
+          }
+          break;
+        case undefined:
+          if (item.title == "Power Factor") { //判断是不是功率因素
+            if (this.isDot(value)) {
+              Val = parseFloat(value).toFixed(2);
+            } else {
+              Val = value + ".00"
+            }
+          }
+          break;
+        default:
+          Val = value;
+          break;
+      }
+      return Val
+      // return value
+    },
+    integerLength: function (value) { //返回整数位的长度
+      var i = (value + "").indexOf(".");
+      return (value + "").slice(0, i).length;
+    },
+    floatLength: function (value) { //返回小数位的长度
+      var i = (value + "").indexOf(".");
+      return (value + "").slice(i + 1).length;
+    },
+    doNumberDigit: function (value, unit, item,bool) { //处理数字的位数
+      var Val,u;
+      if (this.isDot(value)) {
+        if (this.integerLength(value) == 1 && this.floatLength(value) >= 3) {
+          Val = (value * 1000).toFixed(0);
+          item.unit = unit;
+          u = unit;
+        } else {
+          Val = parseFloat(value).toFixed(1);
+          u = "k"+unit;
+        }
+      } else {
+        Val = value;
+        u = "k"+unit;
+      }
+      if(!!bool){
+        return [Val,u];
+      }else{
+        return Val;
+      }
+    },
+    isDot: function (value) { //处理小数点
+      var reg = new RegExp("\\.");
+      return reg.test(value + "");
+    },
   }
 });
 //type: 1 模块 2、 功能、 3 字段
