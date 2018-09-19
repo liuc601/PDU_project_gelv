@@ -16,70 +16,70 @@ define(function (require) {
         data: function () {
             return {
                 fields: [{
-                        name: '__checkbox:checkbox',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        /* onChanged(){
-                            console.log("onchange");
-                        } */
-                    }, {
-                        name: 'id',
-                        title: 'ID',
-                    },
-                    {
-                        name: 'showType',
-                        title: 'Sensor Type'
-                    },
-                    {
-                        //name: 'hysteresis',
-                        name: '__component:inline-text:hysteresis',
-                        title: 'Hysteresis',
-                        __normalize: function (obj) {
-                            //obj.unit = getFieldUnit;
-                        }
-                    },
-                    {
-                        //name: 'lowAlarm',
-                        name: '__component:inline-text:lowAlarm',
-                        title: 'Low Alarm',
-                        __normalize: function (obj) {
-                            //obj.unit = getFieldUnit;
-                        }
-                    },
-                    {
-                        //name: 'lowWarning',
-                        name: '__component:inline-text:lowWarning',
-                        title: 'Low Warning',
-                        __normalize: function (obj) {
-                            //obj.unit = getFieldUnit;
-                        }
-                    },
-                    {
-                        //name: 'highWarning',
-                        name: '__component:inline-text:highWarning',
-                        title: 'High Warning',
-                        __normalize: function (obj) {
-                            //obj.unit = getFieldUnit;
-                        }
-                    },
-                    {
-                        //name: 'highAlarm',
-                        name: '__component:inline-text:highAlarm',
-                        title: 'High Alarm',
-                        __normalize: function (obj) {
-                            //obj.unit = getFieldUnit;
-                        }
-                    },
-                    {
-                        //name: 'trapNotify',
-                        name: '__component:inline-checkbox:trapNotify',
-                        title: 'SNMP Trap<br/>Notifications',
-                    },
-                    {
-                        //name: 'emailNotify',
-                        name: '__component:inline-checkbox:emailNotify',
-                        title: 'Email<br/>Notifications',
-                    },
+                    name: '__checkbox:checkbox',
+                    titleClass: 'text-center',
+                    dataClass: 'text-center',
+                    /* onChanged(){
+                        console.log("onchange");
+                    } */
+                }, {
+                    name: 'id',
+                    title: 'ID',
+                },
+                {
+                    name: 'showType',
+                    title: 'Sensor Type'
+                },
+                {
+                    //name: 'hysteresis',
+                    name: '__component:inline-text:hysteresis',
+                    title: 'Hysteresis',
+                    __normalize: function (obj) {
+                        //obj.unit = getFieldUnit;
+                    }
+                },
+                {
+                    //name: 'lowAlarm',
+                    name: '__component:inline-text:lowAlarm',
+                    title: 'Low Alarm',
+                    __normalize: function (obj) {
+                        //obj.unit = getFieldUnit;
+                    }
+                },
+                {
+                    //name: 'lowWarning',
+                    name: '__component:inline-text:lowWarning',
+                    title: 'Low Warning',
+                    __normalize: function (obj) {
+                        //obj.unit = getFieldUnit;
+                    }
+                },
+                {
+                    //name: 'highWarning',
+                    name: '__component:inline-text:highWarning',
+                    title: 'High Warning',
+                    __normalize: function (obj) {
+                        //obj.unit = getFieldUnit;
+                    }
+                },
+                {
+                    //name: 'highAlarm',
+                    name: '__component:inline-text:highAlarm',
+                    title: 'High Alarm',
+                    __normalize: function (obj) {
+                        //obj.unit = getFieldUnit;
+                    }
+                },
+                {
+                    //name: 'trapNotify',
+                    name: '__component:inline-checkbox:trapNotify',
+                    title: 'SNMP Trap<br/>Notifications',
+                },
+                {
+                    //name: 'emailNotify',
+                    name: '__component:inline-checkbox:emailNotify',
+                    title: 'Email<br/>Notifications',
+                },
                 ]
             };
         },
@@ -88,42 +88,42 @@ define(function (require) {
         data: function () {
             return {
                 fields: [{
-                        name: 'id',
-                        title: 'ID',
-                    },
-                    {
-                        name: 'showType',
-                        title: 'Sensor Type'
-                    },
-                    {
-                        name: 'hysteresis',
-                        title: 'Hysteresis',
-                    },
-                    {
-                        name: 'lowAlarm',
-                        title: 'Low Alarm',
-                    },
-                    {
-                        name: 'lowWarning',
-                        title: 'Low Warning',
-                    },
-                    {
-                        name: 'highWarning',
-                        title: 'High Warning',
-                    },
-                    {
-                        name: 'highAlarm',
-                        title: 'High Alarm',
-                    },
-                    {
-                        name: '__component:inline-checkbox:trapNotify',
-                        title: 'SNMP Trap<br/>Notifications',
-                    },
-                    {
-                        //name: 'emailNotify',
-                        name: '__component:inline-checkbox:emailNotify',
-                        title: 'Email<br/>Notifications',
-                    },
+                    name: 'id',
+                    title: 'ID',
+                },
+                {
+                    name: 'showType',
+                    title: 'Sensor Type'
+                },
+                {
+                    name: 'hysteresis',
+                    title: 'Hysteresis',
+                },
+                {
+                    name: 'lowAlarm',
+                    title: 'Low Alarm',
+                },
+                {
+                    name: 'lowWarning',
+                    title: 'Low Warning',
+                },
+                {
+                    name: 'highWarning',
+                    title: 'High Warning',
+                },
+                {
+                    name: 'highAlarm',
+                    title: 'High Alarm',
+                },
+                {
+                    name: '__component:inline-checkbox:trapNotify',
+                    title: 'SNMP Trap<br/>Notifications',
+                },
+                {
+                    //name: 'emailNotify',
+                    name: '__component:inline-checkbox:emailNotify',
+                    title: 'Email<br/>Notifications',
+                },
                 ]
             };
         },
@@ -322,17 +322,17 @@ define(function (require) {
                             label: 'Wake Up State',
                             model: 'wakeupState',
                             values: [{
-                                    name: 'LAST',
-                                    value: 2
-                                },
-                                {
-                                    name: 'ON',
-                                    value: 0
-                                },
-                                {
-                                    name: 'OFF',
-                                    value: 1
-                                }
+                                name: 'LAST',
+                                value: 2
+                            },
+                            {
+                                name: 'ON',
+                                value: 0
+                            },
+                            {
+                                name: 'OFF',
+                                value: 1
+                            }
                             ]
                         }]
                     }]
@@ -430,12 +430,12 @@ define(function (require) {
                             type: "label",
                             label: '',
                             model: 'voltage',
-                            styleClasses:"font18px"
+                            styleClasses: "font18px"
                         }, {
                             type: "label",
                             label: '',
                             model: 'frequency',
-                            styleClasses:"font18px"
+                            styleClasses: "font18px"
                         }, {
                             type: "label",
                             label: 'Power Factor',
@@ -519,14 +519,14 @@ define(function (require) {
                     // responsive: false,
                     // height:300,
                     maintainAspectRatio: false,
-                        scales: {
-                            yAxes: [{
-                                ticks:{
-                                    beginAtZero: true,
-                                    suggestedMax: 0.0001,
-                                }
-                            }]
-                        }
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 0.0001,
+                            }
+                        }]
+                    }
                 },
                 timer: null,
                 timerHistory: null,
@@ -535,34 +535,34 @@ define(function (require) {
                 editData: [],
                 eStatus: [],
                 wakeupStateList: [{
-                        name: 'ON',
-                        value: 0
-                    },
-                    {
-                        name: 'OFF',
-                        value: 1
-                    },
-                    {
-                        name: 'LAST',
-                        value: 2
-                    },
+                    name: 'ON',
+                    value: 0
+                },
+                {
+                    name: 'OFF',
+                    value: 1
+                },
+                {
+                    name: 'LAST',
+                    value: 2
+                },
                 ],
                 selectValue: [{
-                        id: 'activePower',
-                        name: 'Active Power'
-                    },
-                    {
-                        id: 'apparentPower',
-                        name: 'Apparent Power'
-                    },
-                    {
-                        id: 'current',
-                        name: 'Current'
-                    },
-                    {
-                        id: 'voltage',
-                        name: 'Voltage'
-                    },
+                    id: 'activePower',
+                    name: 'Active Power'
+                },
+                {
+                    id: 'apparentPower',
+                    name: 'Apparent Power'
+                },
+                {
+                    id: 'current',
+                    name: 'Current'
+                },
+                {
+                    id: 'voltage',
+                    name: 'Voltage'
+                },
                 ],
                 formOptions: {
                     validateAfterLoad: true,
@@ -712,27 +712,27 @@ define(function (require) {
                     }.bind(this)
                 })
             },
-            getOutletHistory: function() {
-                $.get('/cgi-bin/luci/api/v1/outlet/history?type=' + this.chartModel.type + '&id=' + this.outlet.id).success(function (response) {    
+            getOutletHistory: function () {
+                $.get('/cgi-bin/luci/api/v1/outlet/history?type=' + this.chartModel.type + '&id=' + this.outlet.id).success(function (response) {
                     var type = this.chartModel.type;
                     var scale = 0;
                     var max = 0;
                     var unit = '';
                     var stepSize = 0;
 
-                    if(type.indexOf('activePower')>-1) {
+                    if (type.indexOf('activePower') > -1) {
                         unit = 'kW';
                         scale = 3;
                         max = this.arrayToDecimal(response, "value", scale) * 1.25; //在取最大值的同时,把数组中所有的值都修正为指定精度
-                    } else if(type.indexOf('apparentPower')>-1) {
+                    } else if (type.indexOf('apparentPower') > -1) {
                         unit = 'kVA';
                         scale = 3;
                         max = this.arrayToDecimal(response, "value", scale) * 1.25;
-                    } else if(type.indexOf('current')>-1) {
+                    } else if (type.indexOf('current') > -1) {
                         unit = 'A';
                         scale = 2;
                         max = this.arrayToDecimal(response, "value", scale) * 1.25;
-                    } else if(type.indexOf('voltage')>-1) {
+                    } else if (type.indexOf('voltage') > -1) {
                         unit = 'V';
                         scale = 0;
                         max = this.arrayToDecimal(response, "value", scale) * 2;
@@ -749,7 +749,7 @@ define(function (require) {
                         beginAtZero: true,
                         suggestedMax: max,
                         min: 0,
-                        callback: function(value, index, values) {
+                        callback: function (value, index, values) {
                             return parseFloat(value).toFixed(scale) + ' ' + unit;
                         }
                     };
@@ -804,11 +804,11 @@ define(function (require) {
                 this.model.state = this.model.state == '85' ? 'Off' : 'On';
 
                 this.model.voltage = this.toDecimal(response.voltage, 0) + ' V';
-                this.model.frequency = this.toDecimal(response.frequency,1) + ' Hz';
+                this.model.frequency = this.toDecimal(response.frequency, 1) + ' Hz';
                 this.model.powerFactor = this.toDecimal(response.powerFactor, 2);
-                this.model.activeEnergy = this.toDecimal(response.activeEnergy,3) + ' kWh';
+                this.model.activeEnergy = this.toDecimal(response.activeEnergy, 3) + ' kWh';
 
-                var pwr = {unit: ''};
+                var pwr = { unit: '' };
                 this.model.activeEnergy = this.doValuePower(response.activeEnergy, 'Wh', pwr) + ' ' + pwr.unit;
 
                 this.eStatus = [];
@@ -824,21 +824,21 @@ define(function (require) {
 
                 this.eStatus[1] = {
                     title: 'Active Power',
-                    value: this.toDecimal(response.activePower*1000, 0),
+                    value: this.toDecimal(response.activePower * 1000, 0),
                     status: response.activePowerStatus,
-                    max: this.toDecimal(this.model.powerCapacity*1000, 0),
+                    max: this.toDecimal(this.model.powerCapacity * 1000, 0),
                     prompt: 'Capacity',
                     unit: 'W',
                 }
 
                 this.eStatus[2] = {
                     title: 'Apparent Power',
-                    value: this.toDecimal(response.apparentPower*1000, 0),
+                    value: this.toDecimal(response.apparentPower * 1000, 0),
                     status: response.apparentPowerStatus,
-                    max: this.toDecimal(this.model.powerCapacity*1000, 0),
+                    max: this.toDecimal(this.model.powerCapacity * 1000, 0),
                     prompt: 'Capacity',
                     unit: 'VA',
-                }                            
+                }
             },
             getOutletDetail: function () {
                 var layerTime = layer.load(2, {
@@ -900,7 +900,7 @@ define(function (require) {
                                 item.showType = "Line Frequency(Hz)";
                                 break;
                         }
-                    }.bind(this))              
+                    }.bind(this))
 
                     this.threshDatas = [];
                     setTimeout(function () {
