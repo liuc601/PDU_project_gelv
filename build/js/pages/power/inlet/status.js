@@ -99,7 +99,12 @@ define(function (require) {
             },
             renderWithUnit: function (value, field, item) {
                 // console.log("renderWithUnit",value, field, item);
-                return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, item) + ' ' + (field.unit == undefined ? '' : field.unit));
+                var it = {};
+                it.unit = field.unit;
+                it.title = field.title;
+                var v = this.doValueDigit(field.unit, value, it); //doValueDigit会改变单位值，需要用临时变量来存储
+                return this.getStatusColor(item[field.name + "Status"], v + ' ' + (it.unit == undefined ? '' : it.unit));
+                //return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, field) + ' ' + (field.unit == undefined ? '' : field.unit));
             },
         }
     };
@@ -151,6 +156,8 @@ define(function (require) {
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true,
+                                suggestedMax: 0.009,
+                                stepSize: 0,
                                 // suggestedMax: 100,
                                 // suggestedMin: -100,
                                 // max: 100,
@@ -161,7 +168,8 @@ define(function (require) {
                     }
                 },
                 schemaSelect: [],
-                selectValue: []
+                selectValue: [],
+                timerHistory: null,
             };
         },
         computed: {
@@ -278,43 +286,9 @@ define(function (require) {
                         values: this.selectValue,
                         onChanged: function () {
                             //baseConfig.chartLineMaxValue.activePower
-                            $.get('/cgi-bin/luci/api/v1/inlet/history?type=' + this.chartModel.type + '&id=' + this.model.id).success(function (response) {
-                                var types = this.chartModel.type;
-                                //491行有相同的请求
-                                var max = response.getMaxValue("value");
-                                if (max > 1) {
-                                    if (!!~types.indexOf('activePower') || !!~types.indexOf('apparentPower') || !!~types.indexOf('current')) {
-                                        this.chartOptions.scales.yAxes[0].ticks = {
-                                            beginAtZero: true,
-                                            max: parseInt((max /0.8).toFixed(2)),
-                                            min: 0,
-                                        };
-                                    } else if (!!~types.indexOf('voltage')) {
-                                        this.chartOptions.scales.yAxes[0].ticks = {
-                                            beginAtZero: true,
-                                            max: parseInt(max * 2),
-                                            min: 0,
-                                        };
-                                    }
-                                }else{
-                                    this.chartOptions.scales.yAxes[0].ticks = {
-                                        beginAtZero: true,
-                                        max: 1,
-                                        min: 0,
-                                    };
-                                }
-
-                                this.chartData.time = []
-                                this.chartData.value = []
-                                this.chartData.label = this.selectValue.find(function (item) {
-                                    return item.id === this.chartModel.type
-                                }.bind(this))['name'];
-
-                                response.forEach(function (item) {
-                                    this.chartData.time.push(item.time.substring(14, 19));
-                                    this.chartData.value.push(item.value);
-                                }.bind(this))
-                            }.bind(this))
+                            clearInterval(this.timerHistory);
+                            this.getCordHistory();
+                            this.timerHistory = setInterval(this.getCordHistory, 5000);
                         }.bind(this)
                     }]
                 }
@@ -349,7 +323,9 @@ define(function (require) {
         },
         mounted: function () {
             this.init();
+            this.getCordHistory();
             this.timer = setInterval(this.init, 3000);
+            this.timerHistory = setInterval(this.getCordHistory, 5000);
             if (this.$store.state.deviceCap.capability == 6) {
                 this.selectValue = [{
                         id: 'activePower',
@@ -444,6 +420,7 @@ define(function (require) {
         },
         beforeDestroy: function () {
             clearInterval(this.timer);
+            clearInterval(this.timerHistory);
         },
         methods: {
             init: function () {
@@ -477,17 +454,19 @@ define(function (require) {
                         that.lines.push({
                             name: response.lines[i].id,
                             max: response.lines[i].maxCurrent,
-                            current: parseFloat(response.lines[i].current).toFixed(2),
-                            voltage: parseFloat(response.lines[i].voltage).toFixed(0),
+                            current: this.toDecimal(response.lines[i].current, 2),
+                            voltage: this.toDecimal(response.lines[i].voltage, 0),
+                            //current: parseFloat(response.lines[i].current).toFixed(2),
+                            //voltage: parseFloat(response.lines[i].voltage).toFixed(0),
                             status: response.lines[i].currentStatus,
                             prompt: response.lines[i].voltageName
                         })
                     }
                     // console.log(response,that.lines);
                     that.datas = response.phases;
-                    that.datas.forEach(function (item) {
+                    /*that.datas.forEach(function (item) {
                         this.doDataTableNumberDigit(item);
-                    }.bind(this))
+                    }.bind(this))*/
                 }.bind(this))
                 $.get('/cgi-bin/luci/api/v1/inlet/all').success(function (response) {
                     this.schemaSelect = [];
@@ -496,37 +475,6 @@ define(function (require) {
                             id: item.id,
                             name: item.id
                         })
-                    }.bind(this))
-                }.bind(this))
-                $.get('/cgi-bin/luci/api/v1/inlet/history?type=' + this.chartModel.type + '&id=' + this.model.id).success(function (response) {
-                    var types = this.chartModel.type;
-                    var max = response.getMaxValue("value");
-                    if (max > 1) {
-                        if (!!~types.indexOf('activePower') || !!~types.indexOf('apparentPower') || !!~types.indexOf('current')) {
-                            this.chartOptions.scales.yAxes[0].ticks = {
-                                beginAtZero: true,
-                                max: parseInt((max /0.8).toFixed(2)),
-                                min: 0,
-                            };
-                        } else if (!!~types.indexOf('voltage')) {
-                            this.chartOptions.scales.yAxes[0].ticks = {
-                                beginAtZero: true,
-                                max: parseInt(max * 2),
-                                min: 0,
-                            };
-                        }
-                    }else{
-                        this.chartOptions.scales.yAxes[0].ticks = {
-                            beginAtZero: true,
-                            max: 1,
-                            min: 0,
-                        };
-                    }
-                    this.chartData.time = []
-                    this.chartData.value = []
-                    response.forEach(function (item) {
-                        this.chartData.time.push(item.time.substring(14, 19));
-                        this.chartData.value.push(item.value);
                     }.bind(this))
                 }.bind(this))
             },
@@ -564,10 +512,65 @@ define(function (require) {
                         break;
                 }
             },
-            doDataTableNumberDigit: function (item) {
-                item.voltage = parseInt(item.voltage).toFixed(0);
-                item.current = parseInt(item.current).toFixed(2);
+            getCordHistory: function() {
+                $.get('/cgi-bin/luci/api/v1/inlet/history?type=' + this.chartModel.type + '&id=' + this.model.id).success(function (response) {
+                    var type = this.chartModel.type;
+                    var scale = 0;
+                    var max = 0;
+                    var unit = '';
+                    var stepSize = 0;
+
+                    if(type.indexOf('activePower')>-1) {
+                        unit = 'kW';
+                        scale = 3;
+                        max = this.arrayToDecimal(response, "value", scale) * 1.25; //在取最大值的同时,把数组中所有的值都修正为指定精度
+                    } else if(type.indexOf('apparentPower')>-1) {
+                        unit = 'kVA';
+                        scale = 3;
+                        max = this.arrayToDecimal(response, "value", scale) * 1.25;
+                    } else if(type.indexOf('current')>-1) {
+                        unit = 'A';
+                        scale = 2;
+                        max = this.arrayToDecimal(response, "value", scale) * 1.25;
+                    } else if(type.indexOf('voltage')>-1) {
+                        unit = 'V';
+                        scale = 0;
+                        max = this.arrayToDecimal(response, "value", scale) * 2;
+                    } else {
+                        return;
+                    }
+
+                    max = this.toDecimal(max, scale); //只要经过浮点运算都需要重新修正精度
+
+                    //console.log("max",max);
+
+                    this.chartOptions.scales.yAxes[0].ticks = {};
+                    this.chartOptions.scales.yAxes[0].ticks = {
+                            beginAtZero: true,
+                            suggestedMax: max,
+                            min: 0,
+                            callback: function(value, index, values) {
+                                return parseFloat(value).toFixed(scale) + ' ' + unit;
+                            }
+                    };
+
+                    this.chartData.time = []
+                    this.chartData.value = []
+                    this.chartData.label = this.selectValue.find(function (item) {
+                        return item.id === this.chartModel.type
+                    }.bind(this))['name'];
+
+                    response.forEach(function (item) {
+                        this.chartData.time.push(item.time.substring(14, 19));
+                        this.chartData.value.push(item.value);
+                    }.bind(this))
+                }.bind(this))
             }
+            /*
+            doDataTableNumberDigit: function (item) {
+                item.voltage = parseFloat(item.voltage).toFixed(0);
+                item.current = parseFloat(item.current).toFixed(2);
+            }*/
         }
     });
 });

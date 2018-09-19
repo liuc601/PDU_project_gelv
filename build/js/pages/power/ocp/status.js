@@ -77,7 +77,7 @@ define(function (require) {
         methods: {
             currentRender: function (value, field, item) {
                 // console.log(value, field, item);
-                return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, item) + ' A');
+                return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, field) + ' A');
                 // return value + ' A';
             },
             setStatus: function (value) {
@@ -143,17 +143,20 @@ define(function (require) {
                     validateAfterChanged: true
                 },
                 chartData: {
+                    label: 'Ocp Current',
                     time: [],
                     value: []
                 },
                 chartOptions: {
                     responsive: true,
-                    // responsive: false,
-                    // height:300,
                     maintainAspectRatio: false,
                     scales: {
                         yAxes: [{
-                            ticks: {}
+                            ticks: {
+                                beginAtZero: true,
+                                suggestedMax: 0.009,
+                                stepSize: 0,
+                            }
                         }]
                     }
                 },
@@ -161,11 +164,12 @@ define(function (require) {
         },
         computed: {
             chart: function () {
+                //console.log("chart");
                 return {
                     options: this.chartOptions,
                     labels: this.chartData.time,
                     datasets: [{
-                        label: 'Ocp Current',
+                        label: this.chartData.label,
                         backgroundColor: '#f87979',
                         data: this.chartData.value
                     }]
@@ -214,63 +218,27 @@ define(function (require) {
             clearInterval(this.timer);
         },
         watch: {
-            showDetail: function (newVal, oldVal) { //估计这边的状态有问题
+            /*showDetail: function (newVal, oldVal) { //估计这边的状态有问题
                 if (newVal == true) { //当显示详情的时候，设置每3秒获取一次数字
-                    clearInterval(this.timer);
                     this.timer = setInterval(function () {
-                        this.getHistory();
                         this.getOcpStatus();
+                        this.getOcpHistory();
                     }.bind(this), 3000);
                 } else { //如果不显示详情数据的话，就设置一个定时器，要干什么？不知道
                     clearInterval(this.timer);
                     this.timer = setInterval(this.init, 3000);
                 }
-            }
+            }*/
         },
         methods: {
-            onCancelClick: function () {
-                this.showDetail = false;
-            },
-            onApplyClick: function () {
-                $.ajax({
-                    url: '/cgi-bin/luci/api/v1/ocp',
-                    type: 'PUT',
-                    data: JSON.stringify([{
-                        id: this.model.id,
-                        name: this.model.name
-                    }]),
-                    contentType: 'application/json',
-                    success: function (response) {
-                        this.showDetail = false;
-                        this.init();
-                    }.bind(this)
-                })
-            },
-            init: function () {
-                $.get('/cgi-bin/luci/api/v1/ocp/status').success(function (response) {
-                    this.datas = response;
-                    this.datas.forEach(function (item, index) {
-                        item.currentObj = { //将需要的数据用对象的形式传进来，方便获取和计算
-                            max: item.maxCurrent,
-                            current: item.current,
-                            status: item.currentStatus
-                        };
-                        /*
-                        if (item.type == 0) {
-                            item.type = 'FUSE'
-                        } else {
-                            item.type = 'BREAKER'
-                        }*/
-                    }.bind(this))
-                }.bind(this))
-            },
             updateOcpStatus: function (data) {
                 this.model = data;
-                this.editData = data;
+
+                //this.editData = data;
                 this.line[0] = {
-                    max: this.editData.maxCurrent,
-                    current: this.editData.current,
-                    voltage: this.editData.current,
+                    max: this.model.maxCurrent,
+                    current: this.toDecimal(this.model.current, 2),
+                    //voltage: this.toDecimal(this.model.current, 2),
                     prompt: 'Current',
                     hint: 'A',
                     title: 'Rating',
@@ -301,60 +269,69 @@ define(function (require) {
                     }
                 });
             },
-            getOcpStatus: function () {
-                $.get('/cgi-bin/luci/api/v1/ocp/status?id=' + this.editData.id).success(function (response) {
+            getOcpStatus: function (opt) {
+                $.get('/cgi-bin/luci/api/v1/ocp/status?id=' + this.model.id).success(function (response) {
                     //this.editData = response;
                     //this.line[0].current = this.editData.current;
                     //this.line[0].voltage = this.editData.current;
-                    this.updateOcpStatus(response);
+                    var data = response;
+                    if(opt == 0) //opt==0表示名称不被刷新
+                        data.name = this.model.name;//防止名称编辑时被刷新
+                    this.updateOcpStatus(data);
                 }.bind(this))
             },
-            getHistory: function () {
-                var data = this.editData;
-                $.get('/cgi-bin/luci/api/v1/ocp/history?id=' + data.id).success(function (response) {
-                    var max = response.getMaxValue("value");
-                    if (max > 1) {
-                        this.chartOptions.scales.yAxes[0].ticks = {
+            getOcpHistory: function (opt) {
+                //var data = this.editData;                
+                //this.chartOptions.scales.yAxes[0].ticks = {};
+                
+                $.get('/cgi-bin/luci/api/v1/ocp/history?id=' + this.model.id).success(function (response) {
+                    var scale = 2;
+                    var max = this.arrayToDecimal(response, "value", scale); //在取最大值的同时,把数组中所有的值都修正为指定精度
+                    max = this.toDecimal(max*1.25, scale);
+
+                    //console.log("max", max);
+
+                    this.chartOptions.scales.yAxes[0].ticks = {};
+                    this.chartOptions.scales.yAxes[0].ticks = {
                             beginAtZero: true,
-                            max: max,
+                            suggestedMax: max,
+                            //max: max,
                             min: 0,
-                            // stepSize: 10,
-                        }
-                    }else{
-                        this.chartOptions.scales.yAxes[0].ticks = {
-                            beginAtZero: true,
-                            max: 1,
-                            min: 0,
-                        };
-                    }
-                    this.chartData.time = []
-                    this.chartData.value = []
+                            callback: function(value, index, values) {
+                                return parseFloat(value).toFixed(scale) + ' ' + 'A';
+                            }
+                    };
+
+                    this.chartData.time = [];
+                    this.chartData.value = [];
+                    this.chartData.label = 'Ocp Current';
                     response.forEach(function (item) {
                         this.chartData.time.push(item.time.substring(14, 19));
                         this.chartData.value.push(item.value);
                     }.bind(this))
+                    /*
+                    var that = this;
+                    setTimeout(function () {
+                        that.chartData.time = [];
+                        that.chartData.value = [];
+                        response.forEach(function (item) {
+                            that.chartData.time.push(item.time.substring(14, 19));
+                            that.chartData.value.push(item.value);
+                        }.bind(this))
+                    }, 2000);
+                    */
+                    if(opt==1) {
+                        this.timer = setInterval(function () {
+                            this.getOcpStatus(0);
+                            this.getOcpHistory(0);
+                        }.bind(this), 3000);
+
+                        this.showDetail = true; //当点击的时候，将显示状态修改为true，显示详情页
+                    }
+
+                    //this.$emit('update');
+
                 }.bind(this))
-            },
-            editAction: function (data) { //当用户点击edit按钮的时候，调用这个函数，
-                var layerTime = layer.load(2, {
-                    shade: [0.1, '#fff'] //0.1透明度的白色背景
-                });
-                this.line = [];
-                this.model = [];
-                // this.showDetail = false;
-                //this.model = data;
-                this.updateOcpStatus(data);
-                this.getOcpStatus();
-                this.getHistory();
-                this.showDetail = true; //当点击的时候，将显示状态修改为true，显示详情页
-                setTimeout(function () {
-                    layer.close(layerTime);
-                });
-                /*
-                    this.interval = setInterval(() => {
-                        this.editInit(data)
-                    }, 3000);
-                */
             },
             doColor: function (status) { //处理颜色
                 switch (status) {
@@ -375,7 +352,77 @@ define(function (require) {
                         return 'red';
                         break;
                 }
-            }
+            },            
+            init: function () {
+                $.get('/cgi-bin/luci/api/v1/ocp/status').success(function (response) {
+                    this.datas = response;
+                    this.datas.forEach(function (item, index) {
+                        item.currentObj = { //将需要的数据用对象的形式传进来，方便获取和计算
+                            max: item.maxCurrent,
+                            current: item.current,
+                            status: item.currentStatus
+                        };
+                        /*
+                        if (item.type == 0) {
+                            item.type = 'FUSE'
+                        } else {
+                            item.type = 'BREAKER'
+                        }*/
+                    }.bind(this))
+                }.bind(this))
+            },           
+            onEditAction: function (data) { //当用户点击edit按钮的时候，调用这个函数，
+                var layerTime = layer.load(2, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                this.line = [];
+                this.model = [];
+                // this.showDetail = false;
+                //this.model = data;
+                clearInterval(this.timer);
+
+                this.updateOcpStatus(data);
+
+                this.getOcpStatus(1);
+
+                /*在ocp页面呈现历史数据的chart组件必须先配置好，再绘制才有效果, 如果先绘制，配置是空的，后续即使再更新配置没有效果*/
+                /*这里只好控制在第一次获取历史数据后,获得Y轴最大值配置, 再呈现绘制chart组件*/
+                this.getOcpHistory(1); 
+              
+                setTimeout(function () {
+                    layer.close(layerTime);     
+                });
+                /*
+                this.timer = setInterval(function () {
+                    this.getOcpStatus();
+                    this.getOcpHistory(0);
+                }.bind(this), 3000);
+
+                this.showDetail = true; //当点击的时候，将显示状态修改为true，显示详情页
+                */
+            },            
+            onReturnClick: function () {
+                this.showDetail = false;
+                clearInterval(this.timer);
+                this.timer = setInterval(this.init, 3000);
+            },
+            onCancelClick: function () {
+                this.getOcpStatus(1);
+            },
+            onApplyClick: function () {
+                $.ajax({
+                    url: '/cgi-bin/luci/api/v1/ocp',
+                    type: 'PUT',
+                    data: JSON.stringify([{
+                        id: this.model.id,
+                        name: this.model.name
+                    }]),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        this.getOcpStatus(1);
+                    }.bind(this)
+                })
+            },
         }
     });
 });

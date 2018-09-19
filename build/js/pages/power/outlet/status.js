@@ -41,7 +41,7 @@ define(function (require) {
                     {
                         name: 'current',
                         title: 'Current',
-                        callback: 'renderCurrent',
+                        callback: 'renderWithUnit',
                         __normalize: function (obj) {
                             obj.unit = 'A';
                         },
@@ -49,15 +49,15 @@ define(function (require) {
                     {
                         name: 'activePower',
                         title: 'Active Power',
-                        callback: 'renderActivePower',
+                        callback: 'renderWithUnit',
                         __normalize: function (obj) {
-                            obj.unit = 'KW';
+                            obj.unit = 'kW';
                         },
                     },
                     {
                         name: 'powerFactor',
                         title: 'Power Factor',
-                        callback: 'renderPowerFactor',
+                        callback: 'renderWithUnit',
                         __normalize: function (obj) {
                             obj.unit = 'PF';
                         },
@@ -81,6 +81,16 @@ define(function (require) {
         },
         methods: {
             name: function () {},
+            renderWithUnit: function (value, field, item) {
+                // console.log("renderWithUnit",value, field, item);
+                var it = {};
+                it.unit = field.unit;
+                it.title = field.title;
+                var v = this.doValueDigit(field.unit, value, it); //doValueDigit会改变单位值，需要用临时变量来存储
+                return this.getStatusColor(item[field.name + "Status"], v + ' ' + (it.unit == undefined ? '' : it.unit));
+                //return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, field) + ' ' + (field.unit == undefined ? '' : field.unit));
+            },
+            /*
             renderCurrent: function (value, field, item) {
                 return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, item) + ' A');
             },
@@ -89,7 +99,7 @@ define(function (require) {
             },
             renderPowerFactor: function (value, field, item) {
                 return this.getStatusColor(item[field.name + "Status"], (value === '') ? '--' : this.doValueDigit(field.unit, value, item));
-            },
+            },*/
             renderStatus: function (value) {
                 if (value == 0) {
                     return "<span class='clr-green' style='font'>Normal<span>";

@@ -35,11 +35,11 @@ define(function (require) {
 
             this.field = field;
 
-            // this.contextReset();
+            this.contextReset();
         },
         watch: {
             rowTrack: function (nVal, oVal) {
-                // this.contextReset();
+                this.contextReset();
             }
         },
         methods: {
@@ -56,7 +56,10 @@ define(function (require) {
                     )
                 ) {
                     if (this.field == "lowAlarm" || this.field == "lowWarning" || this.field == "highWarning" || this.field == "highAlarm") {
-                        this.value = this.original = parseFloat(this.rowData[this.field]).toFixed(0);
+                        if(this.rowData[this.field] != "-")
+                            this.value = this.original = parseFloat(this.rowData[this.field]).toFixed(0);
+                        else
+                            this.value = this.original = this.rowData[this.field];
                     }else{
                         this.value = this.original = this.rowData[this.field];
                     }

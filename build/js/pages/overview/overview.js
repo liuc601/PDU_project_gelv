@@ -462,7 +462,7 @@ define(function (require) {
                             id: item.id,
                             name: item.name,
                             maxValue: item.maxCurrent,
-                            value: item.current,
+                            value: this.toDecimal(item.current, 2),
                             minValue: 0,
                             status: item.status,
                             enable: 1,

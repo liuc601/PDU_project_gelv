@@ -521,11 +521,15 @@ define(function (require) {
                     maintainAspectRatio: false,
                         scales: {
                             yAxes: [{
-                                ticks:{}
+                                ticks:{
+                                    beginAtZero: true,
+                                    suggestedMax: 0.0001,
+                                }
                             }]
                         }
                 },
                 timer: null,
+                timerHistory: null,
                 choiseData: [],
                 threshDatas: [],
                 editData: [],
@@ -586,40 +590,9 @@ define(function (require) {
                         model: 'type',
                         values: this.selectValue,
                         onChanged: function () {
-                            $.get('/cgi-bin/luci/api/v1/outlet/history?type=' + this.chartModel.type + '&id=' + this.outlet.id).success(function (response) {
-                                var types = this.chartModel.type;
-                                var max = response.getMaxValue("value");
-                                if (max > 1) {
-                                    if (!!~types.indexOf('activePower') || !!~types.indexOf('apparentPower') || !!~types.indexOf('current')) {
-                                        this.chartOptions.scales.yAxes[0].ticks = {
-                                            beginAtZero: true,
-                                            max: parseInt((max /0.8).toFixed(2)),
-                                            min: 0,
-                                        };
-                                    } else if (!!~types.indexOf('voltage')) {
-                                        this.chartOptions.scales.yAxes[0].ticks = {
-                                            beginAtZero: true,
-                                            max: parseInt(max * 2),
-                                            min: 0,
-                                        };
-                                    }
-                                }else{
-                                    this.chartOptions.scales.yAxes[0].ticks = {
-                                        beginAtZero: true,
-                                        max: 1,
-                                        min: 0,
-                                    };
-                                }
-                                this.chartData.time = [];
-                                this.chartData.value = [];
-                                this.chartData.label = this.selectValue.find(function (item) {
-                                    return item.id === this.chartModel.type
-                                }.bind(this))['name'];
-                                response.forEach(function (item) {
-                                    this.chartData.time.push(item.time);
-                                    this.chartData.value.push(item.value);
-                                }.bind(this))
-                            }.bind(this))
+                            clearInterval(this.timerHistory);
+                            this.getOutletHistory();
+                            this.timerHistory = setInterval(this.getOutletHistory, 5000);
                         }.bind(this)
                     }]
                 }
@@ -629,19 +602,20 @@ define(function (require) {
             this.clearSwitchControlLabel(); //消除switch按钮的事件区域过大的问题
             clearInterval(this.timer);
             this.init();
-            //this.timer = setInterval(this.getHistoryData, 3000);//两分钟更新一次
-            this.timer = setInterval(function () {
-                this.getOutletStatus();
-                this.getHistoryData();
-            }.bind(this), 3000);
         },
         destroyed: function () {
             clearInterval(this.timer);
+            clearInterval(this.timerHistory);
         },
         methods: {
             init: function () { //编辑界面的传感器初始化
                 this.getOutletDetail();
-                this.getHistoryData();
+                this.getOutletHistory();
+                //this.timer = setInterval(this.getOutetHistory, 3000);//两分钟更新一次
+                this.timer = setInterval(function () {
+                    this.getOutletStatus();
+                }.bind(this), 3000);
+                this.timerHistory = setInterval(this.getOutletHistory, 5000);
             },
             onReturn: function () {
                 this.$emit('exit');
@@ -738,7 +712,62 @@ define(function (require) {
                     }.bind(this)
                 })
             },
-            getHistoryData: function () {
+            getOutletHistory: function() {
+                $.get('/cgi-bin/luci/api/v1/outlet/history?type=' + this.chartModel.type + '&id=' + this.outlet.id).success(function (response) {    
+                    var type = this.chartModel.type;
+                    var scale = 0;
+                    var max = 0;
+                    var unit = '';
+                    var stepSize = 0;
+
+                    if(type.indexOf('activePower')>-1) {
+                        unit = 'kW';
+                        scale = 3;
+                        max = this.arrayToDecimal(response, "value", scale) * 1.25; //在取最大值的同时,把数组中所有的值都修正为指定精度
+                    } else if(type.indexOf('apparentPower')>-1) {
+                        unit = 'kVA';
+                        scale = 3;
+                        max = this.arrayToDecimal(response, "value", scale) * 1.25;
+                    } else if(type.indexOf('current')>-1) {
+                        unit = 'A';
+                        scale = 2;
+                        max = this.arrayToDecimal(response, "value", scale) * 1.25;
+                    } else if(type.indexOf('voltage')>-1) {
+                        unit = 'V';
+                        scale = 0;
+                        max = this.arrayToDecimal(response, "value", scale) * 2;
+                    } else {
+                        return;
+                    }
+
+                    max = this.toDecimal(max, scale); //只要经过浮点运算都需要重新修正精度
+
+                    //console.log("max",max);
+
+                    this.chartOptions.scales.yAxes[0].ticks = {};
+                    this.chartOptions.scales.yAxes[0].ticks = {
+                        beginAtZero: true,
+                        suggestedMax: max,
+                        min: 0,
+                        callback: function(value, index, values) {
+                            return parseFloat(value).toFixed(scale) + ' ' + unit;
+                        }
+                    };
+
+                    this.chartData.time = []
+                    this.chartData.value = []
+                    this.chartData.label = this.selectValue.find(function (item) {
+                        return item.id === this.chartModel.type
+                    }.bind(this))['name'];
+
+                    response.forEach(function (item) {
+                        this.chartData.time.push(item.time.substring(14, 19));
+                        this.chartData.value.push(item.value);
+                    }.bind(this))
+                }.bind(this))
+            },
+            /*
+            getOutetHistory: function () {
                 $.get('/cgi-bin/luci/api/v1/outlet/history?type=' + this.chartModel.type + '&id=' + this.outlet.id).success(function (response) {
                     var types = this.chartModel.type;
                     var max = response.getMaxValue("value");
@@ -770,6 +799,46 @@ define(function (require) {
                         this.chartData.value.push(item.value);
                     }.bind(this))
                 }.bind(this))
+            },*/
+            updateOutletStatus: function (response) {
+                this.model.state = this.model.state == '85' ? 'Off' : 'On';
+
+                this.model.voltage = this.toDecimal(response.voltage, 0) + ' V';
+                this.model.frequency = this.toDecimal(response.frequency,1) + ' Hz';
+                this.model.powerFactor = this.toDecimal(response.powerFactor, 2);
+                this.model.activeEnergy = this.toDecimal(response.activeEnergy,3) + ' kWh';
+
+                var pwr = {unit: ''};
+                this.model.activeEnergy = this.doValuePower(response.activeEnergy, 'Wh', pwr) + ' ' + pwr.unit;
+
+                this.eStatus = [];
+
+                this.eStatus[0] = {
+                    title: 'Current',
+                    value: this.toDecimal(response.current, 2),
+                    status: response.currentStatus,
+                    max: this.model.currentCapacity,
+                    prompt: 'Capacity',
+                    unit: 'A'
+                }
+
+                this.eStatus[1] = {
+                    title: 'Active Power',
+                    value: this.toDecimal(response.activePower*1000, 0),
+                    status: response.activePowerStatus,
+                    max: this.toDecimal(this.model.powerCapacity*1000, 0),
+                    prompt: 'Capacity',
+                    unit: 'W',
+                }
+
+                this.eStatus[2] = {
+                    title: 'Apparent Power',
+                    value: this.toDecimal(response.apparentPower*1000, 0),
+                    status: response.apparentPowerStatus,
+                    max: this.toDecimal(this.model.powerCapacity*1000, 0),
+                    prompt: 'Capacity',
+                    unit: 'VA',
+                }                            
             },
             getOutletDetail: function () {
                 var layerTime = layer.load(2, {
@@ -779,14 +848,14 @@ define(function (require) {
                 $.get('/cgi-bin/luci/api/v1/outlet?id=' + this.outlet.id).success(function (response) {
                     // console.log("编辑详情页返回的数据", response);
                     this.model = response;
-                    this.model.voltage = response.voltage + ' V';
-                    this.model.frequency = response.frequency + ' Hz';
-                    this.model.activeEnergy = response.activeEnergy + ' kWh';
-                    this.model.state = this.model.state == '85' ? 'Off' : 'On';
+
                     this.model.showType = this.model.type;
-                    this.model.accessCtrl = this.model.accessCtrl; //对应的是按钮
-                    this.model.accessConfig = this.model.accessConfig; //配置输入框
+                    //this.model.accessCtrl = this.model.accessCtrl; //对应的是按钮
+                    //this.model.accessConfig = this.model.accessConfig; //配置输入框
                     this.model.wakeupState = this.wakeupStateList[response.wakeupState];
+
+                    this.updateOutletStatus(response);
+
                     response.thresholds.forEach(function (item) {
                         item.accessCtrl = this.model.accessCtrl; //对应的是按钮
                         item.accessConfig = this.model.accessConfig; //配置输入框
@@ -831,32 +900,8 @@ define(function (require) {
                                 item.showType = "Line Frequency(Hz)";
                                 break;
                         }
-                    }.bind(this))
+                    }.bind(this))              
 
-                    this.eStatus[0] = {
-                        title: 'Current',
-                        value: response.current,
-                        status: response.currentStatus,
-                        max: this.model.currentCapacity,
-                        prompt: 'Capacity',
-                        unit: 'A'
-                    }
-                    this.eStatus[1] = {
-                        title: 'Active Power',
-                        value: response.activePower,
-                        status: response.activePowerStatus,
-                        max: this.model.powerCapacity,
-                        prompt: 'Capacity',
-                        unit: 'kW'
-                    }
-                    this.eStatus[2] = {
-                        title: 'Apparent Power',
-                        value: response.apparentPower,
-                        status: response.apparentPowerStatus,
-                        max: this.model.powerCapacity,
-                        prompt: 'Capacity',
-                        unit: 'kVA'
-                    }
                     this.threshDatas = [];
                     setTimeout(function () {
                         this.threshDatas = response.thresholds;
@@ -866,38 +911,7 @@ define(function (require) {
             },
             getOutletStatus: function () {
                 $.get('/cgi-bin/luci/api/v1/outlet/status?id=' + this.outlet.id).success(function (response) {
-                    this.eStatus = []
-
-                    this.eStatus[0] = {
-                        title: 'Current',
-                        value: response.current,
-                        status: response.currentStatus,
-                        max: this.model.currentCapacity,
-                        prompt: 'Capacity',
-                        unit: 'A'
-                    }
-                    this.eStatus[1] = {
-                        title: 'Active Power',
-                        value: response.activePower,
-                        status: response.activePowerStatus,
-                        max: this.model.powerCapacity,
-                        prompt: 'Capacity',
-                        unit: 'kW'
-                    }
-                    this.eStatus[2] = {
-                        title: 'Apparent Power',
-                        value: response.apparentPower,
-                        status: response.apparentPowerStatus,
-                        max: this.model.powerCapacity,
-                        prompt: 'Capacity',
-                        unit: 'kVA'
-                    }
-                    //this.model.current = response.current;
-                    //this.model.activePower = response.activePower;
-                    //this.model.apparentPower = response.apparentPower;
-                    this.model.voltage = response.voltage + ' V';
-                    this.model.frequency = response.frequency + ' Hz';
-                    this.model.activeEnergy = response.activeEnergy + ' kWh';
+                    this.updateOutletStatus(response);
                 }.bind(this))
             }
         }

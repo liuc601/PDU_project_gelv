@@ -121,7 +121,7 @@ define(function (require) {
         case 1: //Disabled
           return value
         case 12: //"Breaker Tripped";
-          return value
+          return "<div class='red'>" + value + '</div>'
         case 14: //"Low Alarm";
           return "<div class='red'>" + value + '</div>'
         case 15: //"Low Warning";
@@ -134,17 +134,149 @@ define(function (require) {
           return value
       }
     },
-    doValueDigit: function (unit, value, item,bool) { //根据单位处理小数点的位数
+    arrayToDecimal: function(array, field, scale) {
+        var max = 0;
+        var that = this;
+        array.forEach(function (item, index) {
+          var v;
+          if (field !== undefined) {
+            v = that.toDecimal(item[field], scale);
+            item[field] = v;
+          } else {
+            v = that.toDecimal(item, scale);
+            item = v;
+          }
+          max = v > max ? v : max;
+        })
+
+        return max;
+    },
+    toDecimal: function(val, num) {
+      var s;
+      var f = parseFloat(val);
+      if (isNaN(f)) {
+          return;
+      }
+
+      var pre = Math.pow(10, num);
+      f = Math.round(f*pre)/pre; //四舍五入法
+      
+      if (pre == 1) {
+        s = parseInt(f).toString();
+      } else {
+        //小数点之后不足位的补0
+        s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {  
+            rs = s.length;  
+            s += '.';  
+        }  
+        while (s.length <= rs + num) {  
+            s += '0';
+        }
+      }
+      return s; 
+    },
+    doValuePower: function(value, unit, item) { //最多显示4个数字, 如dddd W, dddd kW, ddd.d kW, dd.dd kW, d.ddd Kw, 
+        //输入的值必须是以k为单位
+        var v = parseFloat(value);
+        
+        if (v < 10.0) {
+          v = this.toDecimal(v*1000.0, 0); //确保四舍五入
+          item.unit = unit;
+          return v;
+        } else if (v < 10*1000.0) {
+          var s = parseInt(v).toString();
+          v = this.toDecimal(v, 4 - s.length);
+          item.unit = 'k' + unit;
+          return v;
+        } else if (v < 10*1000.0*1000.0) {
+          v = v/1000.0;
+          var s = parseInt(v).toString();
+          v = this.toDecimal(v, 4 - s.length);
+          item.unit = 'M' + unit;
+          return v;
+        } else if (v < 10*1000.0*1000.0*1000.0) {
+          v = v/(1000.0*1000.0);
+          var s = parseInt(v).toString();
+          v = this.toDecimal(v, 4 - s.length);
+          item.unit = 'G' + unit;
+          return v;
+        } else if (v < 10*1000.0*1000.0*1000.0*1000.0) {
+          v = v/(1000.0*1000.0*1000.0);
+          var s = parseInt(v).toString();
+          v = this.toDecimal(v, 4 - s.length);
+          item.unit = 'T' + unit;
+          return v;
+        } else {
+          v = v/(1000.0*1000.0*1000.0*1000.0);
+          var s = parseInt(v).toString();
+          v = this.toDecimal(v, 4 - s.length);
+          item.unit = 'P' + unit;
+          return v;
+        }
+    },
+    doValueDigit: function (unit, value, item, bool) { //根据单位处理小数点的位数
       var Val = 0;
       switch (unit) {
         case 'kW':
-          Val = this.doNumberDigit(value, 'W', item,bool);
+          Val = this.doValuePower(value, 'W', item);
+          break;
+
+        case 'kVA':
+          Val = this.doValuePower(value, 'VA', item);
+          break;
+
+        case 'kWh':
+          Val = this.doValuePower(value, 'Wh', item);
+          break;
+
+        case 'Hz':
+          Val = this.toDecimal(value, 1);
+          break;
+
+        case 'V':
+        case 'v':
+          Val = this.toDecimal(value, 0);
+          break;
+
+        case '%':
+          Val = this.toDecimal(value, 1);
+          break;
+
+        case 'A':
+          Val = this.toDecimal(value, 2);
+          break;
+
+        case 'PF': //Power Factor
+          Val = this.toDecimal(value, 2);
+          delete item.unit;
+          break;
+
+        default:
+          if (item.title == "Power Factor") { //判断是不是功率因素
+            Val = this.toDecimal(value, 2);
+          } else {
+            Val = value;
+          }
+          break;
+      }
+      //console.log("toDecimal", value, Val, unit);
+      return Val
+      // return value
+    },
+  /*  
+    doValueDigit: function (unit, value, item, bool) { //根据单位处理小数点的位数
+      var Val = 0;
+      switch (unit) {
+        case 'kW':
+          Val = this.doValuePower(value, 'W', item);
           break;
         case 'kVA':
-          Val = this.doNumberDigit(value, 'VA', item,bool);
+          Val = this.doValuePower(value, 'VA', item);
           break;
         case 'kWh':
-          Val = this.doNumberDigit(value, 'Wh', item,bool);
+          Val = this.doValuePower(value, 'Wh', item);
           break;
         case 'Hz':
           if (this.isDot(value)) {
@@ -195,15 +327,18 @@ define(function (require) {
             } else {
               Val = value + ".00"
             }
+          } else {
+            Val = value;
           }
           break;
         default:
           Val = value;
           break;
       }
+      console.log("toDecimal", value, Val, unit);
       return Val
       // return value
-    },
+    },  
     integerLength: function (value) { //返回整数位的长度
       var i = (value + "").indexOf(".");
       return (value + "").slice(0, i).length;
@@ -212,7 +347,7 @@ define(function (require) {
       var i = (value + "").indexOf(".");
       return (value + "").slice(i + 1).length;
     },
-    doNumberDigit: function (value, unit, item,bool) { //处理数字的位数
+    doNumberDigit: function (value, unit, item, bool) { //处理数字的位数
       var Val,u;
       if (this.isDot(value)) {
         if (this.integerLength(value) == 1 && this.floatLength(value) >= 3) {
@@ -232,11 +367,12 @@ define(function (require) {
       }else{
         return Val;
       }
-    },
+    },  
     isDot: function (value) { //处理小数点
       var reg = new RegExp("\\.");
       return reg.test(value + "");
     },
+    */
   }
 });
 //type: 1 模块 2、 功能、 3 字段

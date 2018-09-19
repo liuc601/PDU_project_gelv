@@ -71,8 +71,13 @@ define(function (require) {
         },
         methods: {
             renderActiveEnergy: function (value, field, item) {
-                var o=this.doValueDigit(field.unit, value, item,true);
-                return  o[0]+" "+o[1];
+                 var it = {};
+                it.unit = field.unit;
+                it.title = field.title;
+                var v = this.doValueDigit(field.unit, value, it); //doValueDigit会改变单位值，需要用临时变量来存储
+                return this.getStatusColor(item[field.name + "Status"], v + ' ' + (it.unit == undefined ? '' : it.unit));
+                //var o=this.doValueDigit(field.unit, value, item,true);
+                //return  o[0]+" "+o[1];
             }
         }
     };

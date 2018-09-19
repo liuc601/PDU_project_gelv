@@ -11,9 +11,9 @@ define(function (require) {
 	function getFieldUnit(row, field) {
 		switch (row.id) {
 			case 1:
-				return 'W';
+				return 'kW';
 			case 2:
-				return 'VA';
+				return 'kVA';
 			case 4:
 				return 'kWh';
 			case 5:

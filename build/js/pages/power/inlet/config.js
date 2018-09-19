@@ -171,7 +171,7 @@ define(function (require) {
                                         dataType: 'json',
                                         contentType: 'application/json',
                                         success: function (response) {
-                                            that.model.activeEnergy = '0.00 kWh';
+                                            that.model.activeEnergy = '0 Wh';
                                         }
                                     })
                                 }
@@ -291,9 +291,12 @@ define(function (require) {
                 this.editData = [];
                 this.choiseData = [];
                 $.get('/cgi-bin/luci/api/v1/inlet?id=' + this.model.id).success(function(response){
+                    var pwr = {};
                     this.model.name = response.name;
                     this.model.type = response.type;
-                    this.model.activeEnergy = response.activeEnergy + ' kWh';
+                    pwr.unit = 'Wh';
+                    this.model.activeEnergy = this.doValuePower(response.activeEnergy, pwr.unit, pwr) + ' ' + pwr.unit;
+                    //this.model.activeEnergy = this.toDecimal(response.activeEnergy, ) + ' kWh';
                     cacheData = response.sensors;
                     cacheData.forEach(function(item) {
                         switch (item.type) {
