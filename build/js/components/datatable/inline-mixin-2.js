@@ -147,7 +147,7 @@ define(function (require) {
                             if (field == 'hysteresis' || nowField == 'hysteresis') {
                                 return;
                             }
-                            if (val - h < 0 && !isTp) {
+                            if (this.sub(val, h) < 0 && !isTp) {
                                 errStr = 'Lower Alarm - hysteresis must be greater or equal than 0';
                                 return;
                             }
@@ -156,7 +156,7 @@ define(function (require) {
                             if (highWarning == '-') {
                                 return;
                             }
-                            if (val - h < highWarning) {
+                            if (this.sub(val, h) < highWarning) {
                                 errStr = "highAlarm - hysteresis must be greater or equal to highWarning"
                             }
                             break;
@@ -164,7 +164,7 @@ define(function (require) {
                             if (lowWarning == '-') {
                                 return;
                             }
-                            if (val - 2 * h < lowWarning) {
+                            if (this.sub(val, 2 * h) < lowWarning) {
                                 errStr = field + " - 2 * hysteresis must be greater or equal to lowWarning"
                             }
                             break;
@@ -175,12 +175,12 @@ define(function (require) {
                             //必须保证high和low之间的差值是两倍回差，所以当前正在修改是highWarning或者highAlarm时，
                             //往下判断时，lowWarning被跳过了，到了lowAlarm这里时，必须保证还是减去两倍的回差值
                             if (field == 'highWarning' || field == 'highAlarm') {
-                                if (val - 2 * h < lowAlarm) {
+                                if (this.sub(val, 2 * h) < lowAlarm) {
                                     errStr = field + " -  2 * hysteresis must be greater or equal to lowAlarm"
                                 }
 
                             } else {
-                                if (val - h < lowAlarm) {
+                                if (this.sub(val, h) < lowAlarm) {
                                     errStr = field + " -  hysteresis must be greater or equal to lowAlarm"
                                 }
 
@@ -209,7 +209,7 @@ define(function (require) {
                                 }
                                 val = lowAlarm;
                             }
-                            if (val + h > lowWarning) {
+                            if (this.add(val, h) > lowWarning) {
                                 if (field == 'hysteresis') {
                                     errStr = "lowAlarm + hysteresis must be less than or less than to lowWarning";
                                     return
@@ -227,7 +227,7 @@ define(function (require) {
                                 }
                                 val = lowWarning;
                             }
-                            if (val + 2 * h > highWarning) {
+                            if (this.add(val, 2 * h) > highWarning) {
                                 if (field == 'hysteresis') {
                                     errStr = "lowWarning + 2 * hysteresis must be less than or less than to highWarning";
                                     return
@@ -248,7 +248,7 @@ define(function (require) {
                             //必须保证high和low之间的差值是两倍回差，所以当前正在修改是lowWarning或者lowAlarm时，
                             //向上判断时，highWarning被跳过了，到了highAlarm这里时，必须保证还是加上两倍的回差值
                             if (field == 'lowWarning' || field == 'lowAlarm') {
-                                if (val +2* h > highAlarm) {
+                                if (this.add(val, 2 * h) > highAlarm) {
                                     if (nowField == 'hysteresis') { //只是对要显示的名字做判断和处理
                                         errStr = "highWarning + 2*hysteresis must be less than or less than to highAlarm";
                                         return
@@ -256,7 +256,7 @@ define(function (require) {
                                     errStr = field + " +  hysteresis must be less than or equal to highAlarm"
                                 }
                             } else {
-                                if (val + h > highAlarm) {
+                                if (this.add(val, h) > highAlarm) {
                                     if (nowField == 'hysteresis') { //只是对要显示的名字做判断和处理
                                         errStr = "highWarning + hysteresis must be less than or less than to highAlarm";
                                         return
