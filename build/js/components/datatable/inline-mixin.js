@@ -72,12 +72,15 @@ define(function (require) {
                 this.value = this.original;
                 this.fireEvent();
             },
-            isTrueValue: function () { //这个函数在失去焦点的时候调用，判断用户输入的值时候合法，如果不合法，就直接变成原来的数值
+            isTrueValue: function (isStr) { //这个函数在失去焦点的时候调用，判断用户输入的值时候合法，如果不合法，就直接变成原来的数值
                 var nVal = this.value;
                 var names = "_" + this.field;
                 if (nVal == '') {
                     this.addErrMsg("Please enter a value");
                     return false;
+                }
+                if(isStr){//如果是输入了字符串，就不需要做判断
+                    return true;
                 }
                 if (nVal == "-") { //如果是无限大，就不用判断了；
                     this.rowData[names] = '-';
@@ -99,9 +102,14 @@ define(function (require) {
                  *更新页面的时候，需要让父组件也知道，当前这个元素的状态已经被改变，用户可以提交更改的数据。
                  *如果当前这个输入框的值不对，需要将当前输入框的组件id传入父组件的一个数组里面，之后可以数据正确的时候，再去去除id
                  */
-                if (cptType == 'hl') {
-                    // this["hl" + this.field] && this["hl" + this.field](field);
+                switch(cptType){
+                    case 'hl': 
                     this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
+                    break;
+                    case 'hcc': 
+                    this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
+                    break;
+
                 }
             },
             regValue: function (value) { //验证用户输入的是否为正确的字符

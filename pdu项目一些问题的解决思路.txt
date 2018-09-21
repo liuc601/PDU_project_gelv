@@ -19,9 +19,9 @@
     //2，提示内容多的话，会被顶下去，设置滚动条
     //3，
 
-4，OCP---config
-    1，表格需要做输入限制
-    2，
+//4，OCP---config
+    //1，表格需要做输入限制
+    //2，
 
 5，outlet -- status
     1，switch按钮的lable会被触发，需要处理(this.clearSwitchControlLabel();//消除switch按钮的事件区域过大的问题)

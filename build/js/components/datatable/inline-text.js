@@ -135,6 +135,15 @@ define(function (require) {
                         return
                     }
                     this.isFirst = false;
+                } else if (this.cptType == 'hcc') {
+                    if (this.field != 'name') {
+                        if (this.regValue(nVal)) { //判断输入的值是否正确
+                            layer.msg('请输入数字0~9或-');
+                            this.value = oVal;
+                            return
+                        }
+                    }
+                    this.isFirst = false;
                 }
                 this.$nextTick(function () {
                     var textWidth = $(this.$refs.widthSpan).width();
@@ -153,8 +162,14 @@ define(function (require) {
                 if (this.prev !== this.value) {
                     this.fireEvent();
                 }
-                if (!this.isTrueValue()) {
-                    return;
+                if (this.cptType == 'hcc' && this.field == 'name') {
+                    if(this.isTrueValue(true)){//仅用作判断是否输入,只要有输入就可以了
+                        this.removeErrMsg();
+                    }
+                } else {
+                    if (!this.isTrueValue()) {
+                        return;
+                    }
                 }
                 // this.ttt(this.field,this.rowData[names]);
                 this.$parent.$parent.forEachChildrenUpdataView(this.rowData.id, this.field);
