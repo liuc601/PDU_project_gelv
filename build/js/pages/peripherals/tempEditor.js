@@ -164,6 +164,7 @@ define(function (require) {
                     labels: this.chartData.time,
                     datasets: [{
                         //label: 'Temperature History',
+                        fill:false,
                         label: this.chartData.label,
                         backgroundColor: '#f87979',
                         data: this.chartData.value

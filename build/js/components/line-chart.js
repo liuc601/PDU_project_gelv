@@ -53,7 +53,6 @@ define(function (require) {
         watch:{
             chartData:function(nval){
                 if(this.isFirst){
-                    console.log("first")
                     this.$children[0].renderChart(this.chartData, this.chartData.options);
                     this.isFirst=false;
                 }

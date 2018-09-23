@@ -58,7 +58,7 @@ define(function(require) {
                     this.myStatus.enable = 0;
                     this.myStatus.current = '--.-';
                     //this.myStatus.color = null;
-                    console.log("this status", this.myStatus);
+                    // console.log("this status", this.myStatus);
                 } else {
                     this.myStatus.enable = 1;
                     this.myStatus.min = this.sensor.minValue;
