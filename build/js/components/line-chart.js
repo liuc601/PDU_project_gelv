@@ -39,10 +39,24 @@ define(function (require) {
         components: {
             chart: lineChartComponent
         },
+        data:function(){
+            return {
+                isFirst:true,
+            }
+        },
         props: {
             chartData: {
                 type: Object,
                 require: true
+            }
+        },
+        watch:{
+            chartData:function(nval){
+                if(this.isFirst){
+                    console.log("first")
+                    this.$children[0].renderChart(this.chartData, this.chartData.options);
+                    this.isFirst=false;
+                }
             }
         }
     });

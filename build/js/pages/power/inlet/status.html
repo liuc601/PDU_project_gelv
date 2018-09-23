@@ -29,6 +29,6 @@
 
     <x-panel :title="'Inlet history'" :wrapClass="'col-md-12 col-sm-12 col-xs-12'" :heightClass="''" :addClass="'no-border'">
         <vue-form-generator :schema="chartSchema" :model="chartModel" :options="formOptions"></vue-form-generator>
-        <line-chart :chart-data="chart"></line-chart>
+        <line-chart style="height:400px;" :chart-data="chart"></line-chart>
     </x-panel>
 </div>

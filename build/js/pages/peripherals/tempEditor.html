@@ -8,7 +8,7 @@
             <form-info :model="sensor" :fields="fields" style="padding-left: 60px"></form-info>
         </x-panel>
         <x-panel :subTitle="'Sensor History'" :addClass="'no-border'">
-            <line-chart :chart-data="chart">
+            <line-chart :chart-data="chart"  style="height:400px;" >
                 <button slot="toolbox" class="btn btn-default btn-xs" @click="onRefreshClick"> Refresh </button>
             </line-chart>
         </x-panel>
