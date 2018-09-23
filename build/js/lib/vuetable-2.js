@@ -2540,7 +2540,7 @@ exports.default = {
       __apiMode: false
     };
   },
-  mounted: function mounted:function() {
+  mounted: function () {
     this.normalizeFields();
     this.normalizeSortOrder();
     this.$nextTick(function () {
