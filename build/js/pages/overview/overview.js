@@ -356,7 +356,7 @@ define(function (require) {
                     },
                     callBack: function (item) {
                         $.get('/cgi-bin/luci/api/v1/overview/alert').success(function (response) {
-                            console.log("弹窗页面有模拟数据", response);
+                            // console.log("弹窗页面有模拟数据", response);
                             _this.alertDatas = _this.processAlertData(response);
                         }.bind(this))
                         _this.showAlertDialog();

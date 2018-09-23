@@ -599,9 +599,9 @@ define(function (require) {
             },
         },
         mounted: function () {
-            this.clearSwitchControlLabel(); //消除switch按钮的事件区域过大的问题
             clearInterval(this.timer);
             this.init();
+            this.clearSwitchControlLabel(); //消除switch按钮的事件区域过大的问题
         },
         destroyed: function () {
             clearInterval(this.timer);
@@ -906,6 +906,7 @@ define(function (require) {
                     setTimeout(function () {
                         this.threshDatas = response.thresholds;
                         layer.close(layerTime);
+                        this.clearSwitchControlLabel(); //消除switch按钮的事件区域过大的问题
                     }.bind(this));
                 }.bind(this));
             },

@@ -7,8 +7,8 @@ const config = {
     },
     devServer: {
         port: 8011,
-        host: "192.168.10.233",
-        // host: "192.168.155.233",//尹总公司的机器
+        // host: "192.168.10.233",
+        host: "192.168.155.233",//尹总公司的机器
         // host: "127.0.0.1",
         useLocalIp: true,//允许使用本地ip打开
         open: false, //是否打开浏览器，
@@ -28,8 +28,8 @@ const config = {
                 secure: false //是否加密
             }, */
             "/cgi-bin/luci/api/v1/**": {
-                target: "https://192.168.10.127", //格律的这个路径转发需要加https，否则跨域
-                // target: "https://192.168.155.198", //尹总公司的机器
+                // target: "https://192.168.10.127", //格律的这个路径转发需要加https，否则跨域
+                target: "https://192.168.155.198", //尹总公司的机器
                 changeOrigin: true,
                 secure: false //是否加密
             },

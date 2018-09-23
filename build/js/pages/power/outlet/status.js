@@ -313,6 +313,7 @@ define(function (require) {
                     this.outletEditing = props.rowData;
                     this.outletEditor = 'ol-edit';
                     this.editMode = true;
+                    this.clearSwitchControlLabel();//消除switch按钮的事件区域过大的问题
                     // console.log(domEvent, event, props);
                 } else {
                     if (props.rowData.locked) { //如果是被锁定的状态，弹出提示窗
