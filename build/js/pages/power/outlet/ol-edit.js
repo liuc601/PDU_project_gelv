@@ -16,70 +16,70 @@ define(function (require) {
         data: function () {
             return {
                 fields: [{
-                    name: '__checkbox:checkbox',
-                    titleClass: 'text-center',
-                    dataClass: 'text-center',
-                    /* onChanged(){
-                        console.log("onchange");
-                    } */
-                }, {
-                    name: 'id',
-                    title: 'ID',
-                },
-                {
-                    name: 'showType',
-                    title: 'Sensor Type'
-                },
-                {
-                    //name: 'hysteresis',
-                    name: '__component:inline-text:hysteresis',
-                    title: 'Hysteresis',
-                    __normalize: function (obj) {
-                        //obj.unit = getFieldUnit;
-                    }
-                },
-                {
-                    //name: 'lowAlarm',
-                    name: '__component:inline-text:lowAlarm',
-                    title: 'Low Alarm',
-                    __normalize: function (obj) {
-                        //obj.unit = getFieldUnit;
-                    }
-                },
-                {
-                    //name: 'lowWarning',
-                    name: '__component:inline-text:lowWarning',
-                    title: 'Low Warning',
-                    __normalize: function (obj) {
-                        //obj.unit = getFieldUnit;
-                    }
-                },
-                {
-                    //name: 'highWarning',
-                    name: '__component:inline-text:highWarning',
-                    title: 'High Warning',
-                    __normalize: function (obj) {
-                        //obj.unit = getFieldUnit;
-                    }
-                },
-                {
-                    //name: 'highAlarm',
-                    name: '__component:inline-text:highAlarm',
-                    title: 'High Alarm',
-                    __normalize: function (obj) {
-                        //obj.unit = getFieldUnit;
-                    }
-                },
-                {
-                    //name: 'trapNotify',
-                    name: '__component:inline-checkbox:trapNotify',
-                    title: 'SNMP Trap<br/>Notifications',
-                },
-                {
-                    //name: 'emailNotify',
-                    name: '__component:inline-checkbox:emailNotify',
-                    title: 'Email<br/>Notifications',
-                },
+                        name: '__checkbox:checkbox',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center',
+                        /* onChanged(){
+                            console.log("onchange");
+                        } */
+                    }, {
+                        name: 'id',
+                        title: 'ID',
+                    },
+                    {
+                        name: 'showType',
+                        title: 'Sensor Type'
+                    },
+                    {
+                        //name: 'hysteresis',
+                        name: '__component:inline-text:hysteresis',
+                        title: 'Hysteresis',
+                        __normalize: function (obj) {
+                            //obj.unit = getFieldUnit;
+                        }
+                    },
+                    {
+                        //name: 'lowAlarm',
+                        name: '__component:inline-text:lowAlarm',
+                        title: 'Low Alarm',
+                        __normalize: function (obj) {
+                            //obj.unit = getFieldUnit;
+                        }
+                    },
+                    {
+                        //name: 'lowWarning',
+                        name: '__component:inline-text:lowWarning',
+                        title: 'Low Warning',
+                        __normalize: function (obj) {
+                            //obj.unit = getFieldUnit;
+                        }
+                    },
+                    {
+                        //name: 'highWarning',
+                        name: '__component:inline-text:highWarning',
+                        title: 'High Warning',
+                        __normalize: function (obj) {
+                            //obj.unit = getFieldUnit;
+                        }
+                    },
+                    {
+                        //name: 'highAlarm',
+                        name: '__component:inline-text:highAlarm',
+                        title: 'High Alarm',
+                        __normalize: function (obj) {
+                            //obj.unit = getFieldUnit;
+                        }
+                    },
+                    {
+                        //name: 'trapNotify',
+                        name: '__component:inline-checkbox:trapNotify',
+                        title: 'SNMP Trap<br/>Notifications',
+                    },
+                    {
+                        //name: 'emailNotify',
+                        name: '__component:inline-checkbox:emailNotify',
+                        title: 'Email<br/>Notifications',
+                    },
                 ]
             };
         },
@@ -88,42 +88,42 @@ define(function (require) {
         data: function () {
             return {
                 fields: [{
-                    name: 'id',
-                    title: 'ID',
-                },
-                {
-                    name: 'showType',
-                    title: 'Sensor Type'
-                },
-                {
-                    name: 'hysteresis',
-                    title: 'Hysteresis',
-                },
-                {
-                    name: 'lowAlarm',
-                    title: 'Low Alarm',
-                },
-                {
-                    name: 'lowWarning',
-                    title: 'Low Warning',
-                },
-                {
-                    name: 'highWarning',
-                    title: 'High Warning',
-                },
-                {
-                    name: 'highAlarm',
-                    title: 'High Alarm',
-                },
-                {
-                    name: '__component:inline-checkbox:trapNotify',
-                    title: 'SNMP Trap<br/>Notifications',
-                },
-                {
-                    //name: 'emailNotify',
-                    name: '__component:inline-checkbox:emailNotify',
-                    title: 'Email<br/>Notifications',
-                },
+                        name: 'id',
+                        title: 'ID',
+                    },
+                    {
+                        name: 'showType',
+                        title: 'Sensor Type'
+                    },
+                    {
+                        name: 'hysteresis',
+                        title: 'Hysteresis',
+                    },
+                    {
+                        name: 'lowAlarm',
+                        title: 'Low Alarm',
+                    },
+                    {
+                        name: 'lowWarning',
+                        title: 'Low Warning',
+                    },
+                    {
+                        name: 'highWarning',
+                        title: 'High Warning',
+                    },
+                    {
+                        name: 'highAlarm',
+                        title: 'High Alarm',
+                    },
+                    {
+                        name: '__component:inline-checkbox:trapNotify',
+                        title: 'SNMP Trap<br/>Notifications',
+                    },
+                    {
+                        //name: 'emailNotify',
+                        name: '__component:inline-checkbox:emailNotify',
+                        title: 'Email<br/>Notifications',
+                    },
                 ]
             };
         },
@@ -322,17 +322,17 @@ define(function (require) {
                             label: 'Wake Up State',
                             model: 'wakeupState',
                             values: [{
-                                name: 'LAST',
-                                value: 2
-                            },
-                            {
-                                name: 'ON',
-                                value: 0
-                            },
-                            {
-                                name: 'OFF',
-                                value: 1
-                            }
+                                    name: 'LAST',
+                                    value: 2
+                                },
+                                {
+                                    name: 'ON',
+                                    value: 0
+                                },
+                                {
+                                    name: 'OFF',
+                                    value: 1
+                                }
                             ]
                         }]
                     }]
@@ -340,77 +340,53 @@ define(function (require) {
                 infoSchema: {
                     groups: [{
                         fields: [{
-                            type: "switch",
-                            label: 'Action',
-                            model: 'state',
-                            textOn: "On",
-                            textOff: "Off",
-                            valueOn: "On",
-                            valueOff: "Off",
-                            visible: function (model) {
-                                return model && model.accessCtrl == 1;
-                            },
-                            /* 当点击开关切换的时候，向后台传输开关状态Action */
-                            onChanged: function () {
-                                var type = this.model.state.toLowerCase();
-                                var r;
+                                type: "switch",
+                                label: 'Action',
+                                model: 'state',
+                                textOn: "On",
+                                textOff: "Off",
+                                valueOn: "On",
+                                valueOff: "Off",
+                                visible: function (model) {
+                                    return model && model.accessCtrl == 1;
+                                },
+                                /* 当点击开关切换的时候，向后台传输开关状态Action */
+                                onChanged: function () {
+                                    var type = this.model.state.toLowerCase();
+                                    var r;
 
-                                if (this.model.locked) { //如果是被锁定的状态，弹出提示窗
-                                    layer.msg("No permission");
+                                    if (this.model.locked) { //如果是被锁定的状态，弹出提示窗
+                                        layer.msg("No permission");
+                                        if (type == 'on') {
+                                            this.model.state = 'Off';
+                                        } else {
+                                            this.model.state = 'On';
+                                        }
+                                        return
+                                    }
+
                                     if (type == 'on') {
-                                        this.model.state = 'Off';
+                                        r = confirm("Confirm to On?");
+                                        if (r != true) {
+                                            this.model.state = 'Off';
+                                            return;
+                                        }
                                     } else {
-                                        this.model.state = 'On';
+                                        r = confirm("Confirm to Off?");
+                                        if (r != true) {
+                                            this.model.state = 'On';
+                                            return;
+                                        }
                                     }
-                                    return
-                                }
 
-                                if (type == 'on') {
-                                    r = confirm("Confirm to On?");
-                                    if (r != true) {
-                                        this.model.state = 'Off';
-                                        return;
-                                    }
-                                } else {
-                                    r = confirm("Confirm to Off?");
-                                    if (r != true) {
-                                        this.model.state = 'On';
-                                        return;
-                                    }
-                                }
-
-
-                                var layerTime = layer.load(2, {
-                                    shade: [0.1, '#fff'] //0.1透明度的白色背景
-                                });
-
-                                $.ajax({
-                                    type: 'post',
-                                    url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=' + type,
-                                    data: JSON.stringify([{
-                                        id: this.model.id
-                                    }]),
-                                    contentType: 'application/json',
-                                    success: function (response) {
-                                        layer.close(layerTime);
-                                    }
-                                })
-                            },
-                            buttons: [{
-                                classes: "btn-location",
-                                label: "Cycle",
-                                onclick: function (model) {
-                                    if (this.model.locked) { //如果是被锁定的状态，弹出提示窗
-                                        layer.msg("No permission");
-                                        return
-                                    }
 
                                     var layerTime = layer.load(2, {
                                         shade: [0.1, '#fff'] //0.1透明度的白色背景
                                     });
+
                                     $.ajax({
                                         type: 'post',
-                                        url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=cycle',
+                                        url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=' + type,
                                         data: JSON.stringify([{
                                             id: this.model.id
                                         }]),
@@ -419,91 +395,121 @@ define(function (require) {
                                             layer.close(layerTime);
                                         }
                                     })
-                                }
-                            }],
+                                },
+                                buttons: [{
+                                    classes: "btn-location",
+                                    label: "Cycle",
+                                    onclick: function (model) {
+                                        if (this.model.locked) { //如果是被锁定的状态，弹出提示窗
+                                            layer.msg("No permission");
+                                            return
+                                        }
 
-                        }, {
-                            type: "label",
-                            label: 'State',
-                            model: 'state',
-                        }, {
-                            type: "label",
-                            label: '',
-                            model: 'voltage',
-                            styleClasses: "font18px"
-                        }, {
-                            type: "label",
-                            label: '',
-                            model: 'frequency',
-                            styleClasses: "font18px"
-                        }, {
-                            type: "label",
-                            label: 'Power Factor',
-                            model: 'powerFactor',
-                        }, {
-                            type: "label",
-                            label: 'Active Energy',
-                            model: 'activeEnergy',
-                        }, /* {
-                            type: "label",
-                            label: 'Cycle',
-                            buttons: [{
-                                classes: "btn-location",
-                                label: "Cycle",
-                                onclick: function (model) {
-                                    if (this.model.locked) { //如果是被锁定的状态，弹出提示窗
-                                        layer.msg("No permission");
-                                        return
+                                        var layerTime = layer.load(2, {
+                                            shade: [0.1, '#fff'] //0.1透明度的白色背景
+                                        });
+                                        $.ajax({
+                                            type: 'post',
+                                            url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=cycle',
+                                            data: JSON.stringify([{
+                                                id: this.model.id
+                                            }]),
+                                            contentType: 'application/json',
+                                            success: function (response) {
+                                                layer.close(layerTime);
+                                            }
+                                        })
                                     }
+                                }],
 
-                                    var layerTime = layer.load(2, {
-                                        shade: [0.1, '#fff'] //0.1透明度的白色背景
-                                    });
-                                    $.ajax({
-                                        type: 'post',
-                                        url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=cycle',
-                                        data: JSON.stringify([{
-                                            id: this.model.id
-                                        }]),
-                                        contentType: 'application/json',
-                                        success: function (response) {
-                                            layer.close(layerTime);
-                                        }
-                                    })
-                                }
-                            }],
-                            visible: function (model) {
-                                return model && model.accessCtrl == 1;
+                            }, {
+                                type: "label",
+                                label: 'State',
+                                model: 'state',
+                            }, {
+                                type: "label",
+                                label: '',
+                                model: 'voltage',
+                                styleClasses: "font18px"
+                            }, {
+                                type: "label",
+                                label: '',
+                                model: 'frequency',
+                                styleClasses: "font18px"
+                            }, {
+                                type: "label",
+                                label: 'Power Factor',
+                                model: 'powerFactor',
+                            }, {
+                                type: "label",
+                                label: 'Active Energy',
+                                model: 'activeEnergy',
                             },
-                        }, */ {
-                            type: "reset-btn",
-                            label: 'c',
-                            style: "display:none;",
-                            buttons: [{
-                                classes: "btn-primary",
-                                label: "Reset Energy",
-                                onclick: function (model) {
-                                    // layer.msg("重置按钮");
-                                    // return;
-                                    var layerTime = layer.load(2, {
-                                        shade: [0.1, '#fff'] //0.1透明度的白色背景
-                                    });
-                                    $.ajax({
-                                        type: 'post',
-                                        url: '/cgi-bin/luci/api/v1/outlet/reset?type=activeEnergy&id=' + this.model.id,
-                                        // data: JSON.stringify([{ id: this.model.id }]),
-                                        contentType: 'application/json',
-                                        success: function (response) {
-                                            layer.close(layerTime);
-                                            layer.msg("Reset Energy Success");
+                            /* {
+                                                       type: "label",
+                                                       label: 'Cycle',
+                                                       buttons: [{
+                                                           classes: "btn-location",
+                                                           label: "Cycle",
+                                                           onclick: function (model) {
+                                                               if (this.model.locked) { //如果是被锁定的状态，弹出提示窗
+                                                                   layer.msg("No permission");
+                                                                   return
+                                                               }
+
+                                                               var layerTime = layer.load(2, {
+                                                                   shade: [0.1, '#fff'] //0.1透明度的白色背景
+                                                               });
+                                                               $.ajax({
+                                                                   type: 'post',
+                                                                   url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=cycle',
+                                                                   data: JSON.stringify([{
+                                                                       id: this.model.id
+                                                                   }]),
+                                                                   contentType: 'application/json',
+                                                                   success: function (response) {
+                                                                       layer.close(layerTime);
+                                                                   }
+                                                               })
+                                                           }
+                                                       }],
+                                                       visible: function (model) {
+                                                           return model && model.accessCtrl == 1;
+                                                       },
+                                                   }, */
+                            {
+                                type: "reset-btn",
+                                label: 'c',
+                                style: "display:none;",
+                                buttons: [{
+                                    classes: "btn-primary",
+                                    label: "Reset Energy",
+                                    onclick: function (model) {
+                                        // layer.msg("重置按钮");
+                                        // return;
+                                        r = confirm("Reset Energy?");
+                                        if (r) {
+                                            var layerTime = layer.load(2, {
+                                                shade: [0.1, '#fff'] //0.1透明度的白色背景
+                                            });
+                                            $.ajax({
+                                                type: 'post',
+                                                url: '/cgi-bin/luci/api/v1/outlet/reset?type=activeEnergy&id=' + this.model.id,
+                                                // data: JSON.stringify([{ id: this.model.id }]),
+                                                contentType: 'application/json',
+                                                success: function (response) {
+                                                    layer.close(layerTime);
+                                                    layer.msg("Reset Energy Success");
+                                                }
+                                            })
                                         }
-                                    })
-                                }
-                            }],
-                            visible: function (model) {
-                                return model && model.accessCtrl == 1;
-                            },
-                        }]
+                                    }
+                                }],
+                                visible: function (model) {
+                                    return model && model.accessCtrl == 1;
+                                },
+                            }
+                        ]
                     }]
                 },
                 chartModel: {
@@ -535,34 +541,34 @@ define(function (require) {
                 editData: [],
                 eStatus: [],
                 wakeupStateList: [{
-                    name: 'ON',
-                    value: 0
-                },
-                {
-                    name: 'OFF',
-                    value: 1
-                },
-                {
-                    name: 'LAST',
-                    value: 2
-                },
+                        name: 'ON',
+                        value: 0
+                    },
+                    {
+                        name: 'OFF',
+                        value: 1
+                    },
+                    {
+                        name: 'LAST',
+                        value: 2
+                    },
                 ],
                 selectValue: [{
-                    id: 'activePower',
-                    name: 'Active Power'
-                },
-                {
-                    id: 'apparentPower',
-                    name: 'Apparent Power'
-                },
-                {
-                    id: 'current',
-                    name: 'Current'
-                },
-                {
-                    id: 'voltage',
-                    name: 'Voltage'
-                },
+                        id: 'activePower',
+                        name: 'Active Power'
+                    },
+                    {
+                        id: 'apparentPower',
+                        name: 'Apparent Power'
+                    },
+                    {
+                        id: 'current',
+                        name: 'Current'
+                    },
+                    {
+                        id: 'voltage',
+                        name: 'Voltage'
+                    },
                 ],
                 formOptions: {
                     validateAfterLoad: true,
@@ -808,7 +814,9 @@ define(function (require) {
                 this.model.powerFactor = this.toDecimal(response.powerFactor, 2);
                 this.model.activeEnergy = this.toDecimal(response.activeEnergy, 3) + ' kWh';
 
-                var pwr = { unit: '' };
+                var pwr = {
+                    unit: ''
+                };
                 this.model.activeEnergy = this.doValuePower(response.activeEnergy, 'Wh', pwr) + ' ' + pwr.unit;
 
                 this.eStatus = [];
