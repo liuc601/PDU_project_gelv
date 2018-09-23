@@ -104,6 +104,12 @@ define(function (require) {
                     hl:Hysteresis,Low Alarm,Low Warning,High Warning,High Alarm这种数据形式的计算规则
                     */
                     type: String
+                },
+                isSensorType: {//可以传进来计算规则，之后根据字符串选择计算规则
+                    /* 
+                    hl:Hysteresis,Low Alarm,Low Warning,High Warning,High Alarm这种数据形式的计算规则
+                    */
+                    type: String
                 }
             },
             watch: {
@@ -139,7 +145,8 @@ define(function (require) {
             },
             mounted: function () {
                 this.loadData();
-                console.log("datatable : this.cptType",this.cptType);
+                // console.log("datatable : this.cptType",this.cptType);
+                console.log("datatable : this.isSensorType",this.isSensorType);
             },
             methods: {
                 isSlotField: function (field) {
@@ -173,7 +180,7 @@ define(function (require) {
                     //用子元素发生修改的时候，调用这个方法，这个方法会不断的遍历同行的子元素，
                     //然后调用他们的界面更新函数，及逆行状态判断
                     this.childrenGroup[row].forEach(function(item,index){
-                        item.updataView(this.cptType,field);//将计算类型传递给子组件，还有当前修改的类型
+                        item.updataView(this.cptType,field,this.isSensorType=='true');//将计算类型传递给子组件，还有当前修改的类型
                     }.bind(this))
                 },
                 loadNextData: function (index) {

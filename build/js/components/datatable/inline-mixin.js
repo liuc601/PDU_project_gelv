@@ -102,6 +102,7 @@ define(function (require) {
                  *更新页面的时候，需要让父组件也知道，当前这个元素的状态已经被改变，用户可以提交更改的数据。
                  *如果当前这个输入框的值不对，需要将当前输入框的组件id传入父组件的一个数组里面，之后可以数据正确的时候，再去去除id
                  */
+                console.log(isTp);
                 switch(cptType){
                     case 'hl': 
                     this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目

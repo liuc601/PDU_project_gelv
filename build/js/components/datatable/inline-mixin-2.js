@@ -63,12 +63,12 @@ define(function (require) {
                     "Apparent Power(kVA)": 1,
                     "apparentPower": 1,
 
-                    "Inlet Power Factor": 0.02,
-                    "Power Factor(%)": 0.02,
-                    "powerFactor": 0.02,
+                    "Inlet Power Factor": 0.2,
+                    "Power Factor(%)": 0.2,
+                    "powerFactor": 0.2,
 
                     "Inlet Active Energy(kWh)": 1,
-                    "Active Energy(kWh)": 11,
+                    "Active Energy(kWh)": 1,
                     "activeEnergy": 1,
 
                     "Inlet Line Frequency(Hz)": 10,
@@ -98,6 +98,7 @@ define(function (require) {
             ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
             hlRule: function (field, isTp) {
                 var nowField = this.field; //当前是哪个组件？
+                var showType=this.showType;
                 var val = parseFloat(this.rowData['_' + nowField] != undefined ? this.rowData['_' + nowField] : this.rowData[nowField]); //找到当前修改的值
                 val = val == '-' ? '-' : parseFloat(val);
                 var min = parseFloat(this.rowData.minValue);
@@ -119,6 +120,11 @@ define(function (require) {
                 var downArr = fieldArr.slice(0, index).reverse();
                 downArr.push('hysteresis');
                 var upArr = fieldArr.slice(index + 1, fieldArr.length);
+
+
+                console.log(isTp?'当前是传感器':'普通',max,min);
+
+
                 if (val == '-') { //如果当前的值是  - ，就不做任何比较，跳过
                     return;
                 }
@@ -147,7 +153,7 @@ define(function (require) {
                             if (field == 'hysteresis' || nowField == 'hysteresis') {
                                 return;
                             }
-                            if (this.sub(val, h) < 0 && !isTp) {
+                            if (this.sub(val, h) < 0 && min>=0) {
                                 errStr = 'Lower Alarm - hysteresis must be greater or equal than 0';
                                 return;
                             }
@@ -211,7 +217,7 @@ define(function (require) {
                             }
                             if (this.add(val, h) > lowWarning) {
                                 if (field == 'hysteresis') {
-                                    errStr = "lowAlarm + hysteresis must be less than or less than to lowWarning";
+                                    // errStr = "lowAlarm + hysteresis must be less than or less than to lowWarning";
                                     return
                                 }
                                 errStr = field + " + hysteresis must be less than or less than to lowWarning"

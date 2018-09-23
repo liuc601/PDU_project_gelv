@@ -174,6 +174,7 @@ define(function (require) {
         mounted:function() {
             this.init();
             this.timer = setInterval(this.getHistory, 3000);//两分钟更新一次
+            // console.log(this);
         },
         destroyed: function () {
             clearInterval(this.timer);
