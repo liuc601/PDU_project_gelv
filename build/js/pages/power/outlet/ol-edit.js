@@ -801,7 +801,7 @@ define(function (require) {
                 }.bind(this))
             },*/
             updateOutletStatus: function (response) {
-                this.model.state = this.model.state == '85' ? 'Off' : 'On';
+                this.model.state = response.state == '85' ? 'Off' : 'On';
 
                 this.model.voltage = this.toDecimal(response.voltage, 0) + ' V';
                 this.model.frequency = this.toDecimal(response.frequency, 1) + ' Hz';
