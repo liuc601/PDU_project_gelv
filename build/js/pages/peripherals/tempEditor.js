@@ -281,7 +281,8 @@ define(function (require) {
                 this.$emit('exit');
             },
             onCancelClick: function () {
-                this.$emit('exit');
+                // this.$emit('exit');//不退出，直接在当前的页面刷新
+                this.init();
             },
             onApplyClick: function () {
                 if(this.$refs["sensorConfig"].errDataArr.length!=0){
@@ -372,11 +373,12 @@ define(function (require) {
                     contentType: 'application/json',
                     complete:function (response) {
                         this.editData = [];
-                        this.$emit('exit');
+                        // this.$emit('exit');
                         //this.init();
                         setTimeout(function() {
                             layer.close(layerTime);
-                        });                       
+                        });
+                        this.init();//设置完成之后，初始化                       
                     }.bind(this)
                 })
 
