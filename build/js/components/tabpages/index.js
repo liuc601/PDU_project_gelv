@@ -1,47 +1,47 @@
-define(function(require) {
+define(function (require) {
     var Vue = require('vue');
     require('tabpages');
     require('pages/page');
 
     return Vue.extend({
         template: '<x-page :title="title"><tab-pages :tabs="tabs" ref="tabpage"></tab-pages></x-page>',
-        data: function() {
+        data: function () {
             return {
                 tabs: [],
                 title: ''
             };
         },
         watch: {
-            $route: function(nVal, oVal) {
+            $route: function (nVal, oVal) {
                 this.routeToTabpages();
                 if (nVal.meta.children)
-                    this.$nextTick(function() {
+                    this.$nextTick(function () {
                         this.routeDefault();
                         this.title = nVal.meta.title;
                     });
                 else {
-                    this.$nextTick(function() {
+                    this.$nextTick(function () {
                         this.$refs.tabpage.tabpageSwitch('#' + nVal.path);
                     });
                 }
             }
         },
-        beforeMount: function() {
+        beforeMount: function () {
             this.title = this.$route.meta.title;
             this.routeToTabpages();
         },
-        mounted: function() {
+        mounted: function () {
             this.routeDefault();
         },
         methods: {
-            routeDefault: function() {
+            routeDefault: function () {
 
                 if (this.tabs === null || this.tabs === undefined) {
                     return;
                 }
 
                 var redirect = this.tabs[0].path.slice(1);
-
+                console.log(this.tabs);
                 if (this.$store.getters.urlSubRedirect !== '') {
                     redirect = this.$store.getters.urlSubRedirect;
                     this.$store.commit('setUrlSubRedirect', '');
@@ -49,7 +49,7 @@ define(function(require) {
 
                 this.$router.push(redirect);
             },
-            routeToTabpages: function() {
+            routeToTabpages: function () {
                 var tabs = [];
                 var children = this.$route.meta.children;
 
