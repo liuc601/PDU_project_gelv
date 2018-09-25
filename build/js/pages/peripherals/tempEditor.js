@@ -284,6 +284,10 @@ define(function (require) {
                 this.$emit('exit');
             },
             onApplyClick: function () {
+                if(this.$refs["sensorConfig"].errDataArr.length!=0){
+                    layer.msg("There are incorrect values in the table");
+                    return;
+                }
                 // this.$emit('exit');
                 var data = [];
 

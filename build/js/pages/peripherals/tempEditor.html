@@ -16,7 +16,7 @@
             <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
 
             <x-panel :subTitle="'Configure Thresholds'" :addClass="'no-border'">
-                <datatable isSensorType="true" cptType='hl' :datas="datas" :edit="editData" :choiseData="choiseData" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
+                <datatable ref="sensorConfig" isSensorType="true" cptType='hl' :datas="datas" :edit="editData" :choiseData="choiseData" :showFooter='false' :showDelButton="false" :showAddButton="false" :loadOnStart="false">
                     <div slot="toolbar">
                         <button class="btn btn-default btn-xs" @click="resetSensorThresh">
                             <i class="fa fa-undo" aria-hidden="true"></i> Restore PDU Defined
