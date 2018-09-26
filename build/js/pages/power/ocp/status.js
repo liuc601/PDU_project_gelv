@@ -17,8 +17,10 @@ define(function (require) {
                         title: 'ID',
                     },
                     {
-                        name: 'name',
-                        title: 'OCP Name'
+                        // name: 'name',
+                        // title: 'OCP Name'
+                        name: '__slot:detailLink',
+                        title: 'OCP Name',
                     },
                     {
                         name: 'type',
@@ -57,20 +59,20 @@ define(function (require) {
                         name: 'phase',
                         title: 'Phases'
                     },
-                    {
-                        name: '__component:table-actions',
-                        title: 'Action',
-                        __normalize: function (obj) {
-                            obj.__com = {};
-                            obj.__com.showDel = false;
-                            obj.__com.itemAction = function () {
-                                console.log(1);
-                            }
-                        },
-                        onClick: function () {
+                    // {
+                    //     name: '__component:table-actions',
+                    //     title: 'Action',
+                    //     __normalize: function (obj) {
+                    //         obj.__com = {};
+                    //         obj.__com.showDel = false;
+                    //         obj.__com.itemAction = function () {
+                    //             console.log(1);
+                    //         }
+                    //     },
+                    //     onClick: function () {
 
-                        }
-                    }
+                    //     }
+                    // }
                 ],
             };
         },
