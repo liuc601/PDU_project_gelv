@@ -316,11 +316,11 @@ define(function (require) {
 
                 if (data.trapNotify == true && data.emailNotify == true) {
                     data.notify = 3;
-                } else if (item.trapNotify == false && data.emailNotify == true) {
+                } else if (data.trapNotify == false && data.emailNotify == true) {
                     data.notify = 2;
-                } else if (item.trapNotify == true && data.emailNotify == false) {
+                } else if (data.trapNotify == true && data.emailNotify == false) {
                     data.notify = 1;
-                } else if (item.trapNotify == false && data.emailNotify == false) {
+                } else if (data.trapNotify == false && data.emailNotify == false) {
                     data.notify = 0;
                 }
 
@@ -362,7 +362,6 @@ define(function (require) {
                     data.push(item);
                 })*/
 
-                console.log(data);
 
                 //layer.close(layerTime);
                 $.ajax({

@@ -125,7 +125,7 @@ define(function (require) {
                         //清空数据
                         // console.log("all sensor", response);
                         // response[0].status=0
-                        //console.log("all sensor", response);
+                        // console.log("all sensor", response);
                         // layer.close(layerTime);
                         // return
                         response.forEach(function(item){
