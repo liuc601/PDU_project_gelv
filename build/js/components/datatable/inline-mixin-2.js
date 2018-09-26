@@ -47,6 +47,8 @@ define(function (require) {
                 }
                 if (mdvTable[showType]) {
                     return mdvTable[showType]
+                } else if (this.field == "name") {
+                    return 1
                 } else {
                     console.log("没有找到当前的分辨率    ", showType);
                     return 0.000001
@@ -98,7 +100,7 @@ define(function (require) {
             ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
             hlRule: function (field, isTp) {
                 var nowField = this.field; //当前是哪个组件？
-                var showType=this.showType;
+                var showType = this.showType;
                 var val = parseFloat(this.rowData['_' + nowField] != undefined ? this.rowData['_' + nowField] : this.rowData[nowField]); //找到当前修改的值
                 val = val == '-' ? '-' : parseFloat(val);
                 var min = parseFloat(this.rowData.minValue);
@@ -122,7 +124,7 @@ define(function (require) {
                 var upArr = fieldArr.slice(index + 1, fieldArr.length);
 
 
-                console.log(isTp?'当前是传感器':'普通',max,min);
+                console.log(isTp ? '当前是传感器' : '普通', max, min);
 
 
                 if (val == '-') { //如果当前的值是  - ，就不做任何比较，跳过
@@ -155,7 +157,7 @@ define(function (require) {
                             }
                             // if (this.sub(val, h) < 0 && min>=0) {
                             if (this.sub(val, h) < min) {
-                                errStr = 'Lower Alarm - hysteresis must be greater or equal than min '+min;
+                                errStr = 'Lower Alarm - hysteresis must be greater or equal than min ' + min;
                                 return;
                             }
                             break;
@@ -289,6 +291,33 @@ define(function (require) {
                     }
                 } else {
                     this.removeErrMsg();
+                }
+            },
+            /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+            hl的判断规则
+            ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+            /*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+            hl的判断规则
+            ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
+            exRule: function (field, isTp) {
+                //"delay"
+                var nowField = this.field; //当前是哪个组件？
+                var showType = this.showType;
+                var errStr = '';
+                var val = parseFloat(this.rowData['_' + nowField] != undefined ? this.rowData['_' + nowField] : this.rowData[nowField]); //找到当前修改的值
+                val = val == '-' ? '-' : parseFloat(val);
+                var min = 0;
+                var max = 900;
+                if (nowField == "delay") {
+                    if (val > max) {
+                        errStr = field + " must be less than or equal to Max " + max;
+                        this.addErrMsg(errStr);
+                    } else if (val < min) {
+                        errStr = field + "must be greater min " + min;
+                        this.addErrMsg(errStr);
+                    } else {
+                        this.removeErrMsg();
+                    }
                 }
             },
             /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑

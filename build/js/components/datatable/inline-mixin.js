@@ -76,7 +76,7 @@ define(function (require) {
                 var names = "_" + this.field;
                 var nVal = this.value;
                 var oVal = this.rowData[names] === undefined ? this.original : this.rowData[names];//获取上一次的值
-                if (nVal == '') {
+                if (nVal === '') {
                     this.addErrMsg("Please enter a value");
                     return false;
                 }
@@ -104,7 +104,6 @@ define(function (require) {
                  *更新页面的时候，需要让父组件也知道，当前这个元素的状态已经被改变，用户可以提交更改的数据。
                  *如果当前这个输入框的值不对，需要将当前输入框的组件id传入父组件的一个数组里面，之后可以数据正确的时候，再去去除id
                  */
-                console.log(isTp);
                 switch (cptType) {
                     case 'hl':
                         this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
@@ -112,20 +111,37 @@ define(function (require) {
                     case 'hcc':
                         this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
                         break;
+                    case 'ex':
+                        this.exRule && this.exRule(field, isTp); //传进去的当前发生修改的项目
+                        break;
 
                 }
             },
             regValue: function (value) { //验证用户输入的是否为正确的字符
                 var reg = new RegExp("[^0-9-\.]", "ig");
-                var dotResult = value.match(/\./ig);
-                var _result = value.match(/-/ig);
-                // var reg = new RegExp("^\\d+(\\.\\d+)?$");//匹配数字
-                if (reg.test(value)) { //如果检测到非数字和-，就返回true
-                    return true;
-                } else if (dotResult != null && dotResult.length > 1) {
-                    return true;
-                } else if (_result != null && _result.length > 1) {
-                    return true;
+                if(typeof value=="string"){
+                    var dotResult = value.match(/\./ig);
+                    var _result = value.match(/-/ig);
+                    // var reg = new RegExp("^\\d+(\\.\\d+)?$");//匹配数字
+                    if (reg.test(value)) { //如果检测到非数字和-，就返回true
+                        return true;
+                    } else if (dotResult != null && dotResult.length > 1) {
+                        return true;
+                    } else if (_result != null && _result.length > 1) {
+                        return true;
+                    }
+                }else if(typeof value=="number"){//如果是数字，做特殊处理
+                    var _value=value+"";
+                    var dotResult = _value.match(/\./ig);
+                    var _result = _value.match(/-/ig);
+                    // var reg = new RegExp("^\\d+(\\.\\d+)?$");//匹配数字
+                    if (reg.test(_value)) { //如果检测到非数字和-，就返回true
+                        return true;
+                    } else if (dotResult != null && dotResult.length > 1) {
+                        return true;
+                    } else if (_result != null && _result.length > 1) {
+                        return true;
+                    }
                 }
             },
             addIdToErrArray: function (id) {
@@ -149,6 +165,7 @@ define(function (require) {
             isMR: function (diffQ, md) { //判断修改的差值是否匹配分辨率
                 var a = 1 / md; //进行整数倍放大
                 var _diffQ = Math.abs(diffQ * a); //放大差值
+                console.log(_diffQ,parseInt(_diffQ) == parseFloat(_diffQ));
                 return parseInt(_diffQ) == parseFloat(_diffQ);
             }
 
