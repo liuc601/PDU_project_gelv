@@ -123,6 +123,8 @@ define(function (require) {
                     dataType: 'json',
                     success: function(response){
                         //清空数据
+                        // console.log("all sensor", response);
+                        // response[0].status=0
                         //console.log("all sensor", response);
                         // layer.close(layerTime);
                         // return

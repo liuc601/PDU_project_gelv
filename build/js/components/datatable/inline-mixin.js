@@ -46,7 +46,7 @@ define(function (require) {
             fireEvent: function (event) {
                 this.$parent.$emit(this.eventPrefix + 'change', this.rowIndex, this.field, this.value);
             },
-            contextReset: function () {//对电压的数据进行特殊处理，可能没用
+            contextReset: function () { //对电压的数据进行特殊处理，可能没用
                 this.isModified = false;
                 var showType = this.rowData.showType;
                 var cptType = this.$parent.$parent.cptType;
@@ -56,11 +56,11 @@ define(function (require) {
                     )
                 ) {
                     if (this.field == "lowAlarm" || this.field == "lowWarning" || this.field == "highWarning" || this.field == "highAlarm") {
-                        if(this.rowData[this.field] != "-")
+                        if (this.rowData[this.field] != "-")
                             this.value = this.original = parseFloat(this.rowData[this.field]).toFixed(0);
                         else
                             this.value = this.original = this.rowData[this.field];
-                    }else{
+                    } else {
                         this.value = this.original = this.rowData[this.field];
                     }
                 } else {
@@ -73,13 +73,14 @@ define(function (require) {
                 this.fireEvent();
             },
             isTrueValue: function (isStr) { //这个函数在失去焦点的时候调用，判断用户输入的值时候合法，如果不合法，就直接变成原来的数值
-                var nVal = this.value;
                 var names = "_" + this.field;
+                var nVal = this.value;
+                var oVal = this.rowData[names] === undefined ? this.original : this.rowData[names];//获取上一次的值
                 if (nVal == '') {
                     this.addErrMsg("Please enter a value");
                     return false;
                 }
-                if(isStr){//如果是输入了字符串，就不需要做判断
+                if (isStr) { //如果是输入了字符串，就不需要做判断
                     return true;
                 }
                 if (nVal == "-") { //如果是无限大，就不用判断了；
@@ -87,7 +88,8 @@ define(function (require) {
                 } else {
                     if (!this.isFirst && !this.isMR(nVal, this.rowData.mdValue)) { //如果修改的值不是分辨率要求的值，就报错
                         layer.msg("The difference shall not be less than " + this.rowData.mdValue);
-                        this.addErrMsg("The difference shall not be less than " + this.rowData.mdValue);
+                        //如果分辨率设置错误，就直接提示，然后恢复成原来的值
+                        // this.addErrMsg("The difference shall not be less than " + this.rowData.mdValue);
                         this.value = oVal;
                         return false;
                     } else {
@@ -103,13 +105,13 @@ define(function (require) {
                  *如果当前这个输入框的值不对，需要将当前输入框的组件id传入父组件的一个数组里面，之后可以数据正确的时候，再去去除id
                  */
                 console.log(isTp);
-                switch(cptType){
-                    case 'hl': 
-                    this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
-                    break;
-                    case 'hcc': 
-                    this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
-                    break;
+                switch (cptType) {
+                    case 'hl':
+                        this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
+                        break;
+                    case 'hcc':
+                        this.hlRule && this.hlRule(field, isTp); //传进去的当前发生修改的项目
+                        break;
 
                 }
             },
