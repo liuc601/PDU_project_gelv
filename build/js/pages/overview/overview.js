@@ -358,13 +358,6 @@ define(function (require) {
                         $.get('/cgi-bin/luci/api/v1/overview/alert').success(function (response) {
                             // console.log("弹窗页面有模拟数据", response);
                             _this.alertDatas = _this.processAlertData(response);
-                            _this.alertDatas.push({
-                                event: "Outlet 07", //(显示的名称),
-                                group: "Line", //(用来标识跳转的页面)
-                                status: 12, //(标识告警状态)
-                                type: "", //(用来添加显示的单位)
-                                value: "85" //(根据type来显示对应的值)
-                            })
                         }.bind(this))
                         _this.showAlertDialog();
                     }
@@ -631,22 +624,21 @@ define(function (require) {
             handleItemOfAlert: function (item) {
                 switch (item.group) {
                     case "Cord":
-                        this.$router.push("/power/inlet/status");
+                        this.$router.push("/power/inlet");
                     case "Line":
-                        this.$router.push("/power/inlet/status");
+                        this.$router.push("/power/inlet");
                     case "Phase":
-                        this.$router.push("/power/inlet/status");
+                        this.$router.push("/power/inlet");
                         break;
                     case "OCP":
-                        this.$router.push("/power/ocp/status");
+                        this.$router.push("/power/ocp");
                         break;
                     case "Outlet":
-                        this.$router.push("/power/outlet/status");
+                        this.$router.push("/power/outlet");
                         break;
                     case "Sensor":
                         this.$router.push("/peripherals/sensors");
                         break;
-
                 }
             },
             processAlertData: function (alertData) { //处理告警的数据

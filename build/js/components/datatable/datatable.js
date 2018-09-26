@@ -146,7 +146,7 @@ define(function (require) {
             mounted: function () {
                 this.loadData();
                 // console.log("datatable : this.cptType",this.cptType);
-                console.log("datatable : this.isSensorType",this.isSensorType);
+                // console.log("datatable : this.isSensorType",this.isSensorType);
             },
             methods: {
                 isSlotField: function (field) {

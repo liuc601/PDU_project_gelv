@@ -41,7 +41,6 @@ define(function (require) {
                 }
 
                 var redirect = this.tabs[0].path.slice(1);
-                console.log(this.tabs);
                 if (this.$store.getters.urlSubRedirect !== '') {
                     redirect = this.$store.getters.urlSubRedirect;
                     this.$store.commit('setUrlSubRedirect', '');
