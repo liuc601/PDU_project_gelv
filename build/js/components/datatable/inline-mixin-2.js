@@ -262,7 +262,7 @@ define(function (require) {
                                         errStr = "highWarning + 2*hysteresis must be less than or equal to highAlarm";
                                         return
                                     }
-                                    errStr = field + " +  hysteresis must be less than or equal to highAlarm"
+                                    errStr = field + " +  2*hysteresis must be less than or equal to highAlarm"
                                 }
                             } else {
                                 if (this.add(val, h) > highAlarm) {
