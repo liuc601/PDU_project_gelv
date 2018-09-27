@@ -266,14 +266,35 @@ define(function (require) {
                                 type: "label",
                                 label: 'Over current protector',
                                 model: 'ocp',
+                                buttons: [{
+                                    classes: 'btn btn-primary btn-small',
+                                    label: 'status',
+                                    onclick: function (model, field) {
+                                        this.$router.push("/power/ocp");
+                                    }
+                                }],
                             }, {
                                 type: "label",
                                 label: 'Phase',
                                 model: 'phase',
+                                buttons: [{
+                                    classes: 'btn btn-primary btn-small',
+                                    label: 'status',
+                                    onclick: function (model, field) {
+                                        this.$router.push("/power/inlet/status");
+                                    }
+                                }],
                             }, {
                                 type: "label",
                                 label: 'Inlet',
                                 model: 'inlet',
+                                buttons: [{
+                                    classes: 'btn btn-primary btn-small',
+                                    label: 'status',
+                                    onclick: function (model, field) {
+                                        this.$router.push("/power/inlet/status");
+                                    }
+                                }],
                             }
                         ]
                     }, {
