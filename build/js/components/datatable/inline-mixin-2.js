@@ -122,11 +122,6 @@ define(function (require) {
                 var downArr = fieldArr.slice(0, index).reverse();
                 downArr.push('hysteresis');
                 var upArr = fieldArr.slice(index + 1, fieldArr.length);
-
-
-                console.log(isTp ? '当前是传感器' : '普通', max, min);
-
-
                 if (val == '-') { //如果当前的值是  - ，就不做任何比较，跳过
                     return;
                 }
@@ -183,7 +178,7 @@ define(function (require) {
                             }
                             //必须保证high和low之间的差值是两倍回差，所以当前正在修改是highWarning或者highAlarm时，
                             //往下判断时，lowWarning被跳过了，到了lowAlarm这里时，必须保证还是减去两倍的回差值
-                            if (field == 'highWarning' || field == 'highAlarm') {
+                            if (nowField == 'highWarning' || nowField == 'highAlarm') {
                                 if (this.sub(val, 2 * h) < lowAlarm) {
                                     errStr = field + " -  2 * hysteresis must be greater or equal to lowAlarm"
                                 }
@@ -256,7 +251,7 @@ define(function (require) {
                             }
                             //必须保证high和low之间的差值是两倍回差，所以当前正在修改是lowWarning或者lowAlarm时，
                             //向上判断时，highWarning被跳过了，到了highAlarm这里时，必须保证还是加上两倍的回差值
-                            if (field == 'lowWarning' || field == 'lowAlarm') {
+                            if (nowField == 'lowWarning' || nowField == 'lowAlarm') {
                                 if (this.add(val, 2 * h) > highAlarm) {
                                     if (nowField == 'hysteresis') { //只是对要显示的名字做判断和处理
                                         errStr = "highWarning + 2*hysteresis must be less than or equal to highAlarm";
@@ -272,7 +267,6 @@ define(function (require) {
                                     }
                                     errStr = field + " +  hysteresis must be less than or equal to highAlarm"
                                 }
-
                             }
                             break;
                         case 'max':
