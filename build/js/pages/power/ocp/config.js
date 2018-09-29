@@ -118,8 +118,8 @@ define(function (require) {
                     shade: [0.1,'#fff'] //0.1透明度的白色背景
                 });
                 $.get('/cgi-bin/luci/api/v1/ocp').success(function(response) {
-                    // this.model.hysteresis = response.hysteresis;
                     response.forEach(function(item){
+                        item.showType="Current(A)";//设置当前表格的类型
                         switch (item.notify) {
                             case 0:
                                 item.trapNotify = false;

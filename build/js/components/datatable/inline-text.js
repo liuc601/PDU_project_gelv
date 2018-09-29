@@ -108,6 +108,7 @@ define(function (require) {
         },
         mounted: function () {
             // console.log("获取到父元素",this.rowData);
+            // console.log(this.rowData);
             if (!this.rowData.mdValue) { //如果找不到分辨率的值，就直接调用分辨率函数进行配置
                 this.rowData.mdValue = this.minDiffValue();
             }

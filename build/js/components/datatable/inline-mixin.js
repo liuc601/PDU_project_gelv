@@ -165,7 +165,7 @@ define(function (require) {
             isMR: function (diffQ, md) { //判断修改的差值是否匹配分辨率
                 var a = 1 / md; //进行整数倍放大
                 var _diffQ = Math.abs(diffQ * a); //放大差值
-                console.log(_diffQ,parseInt(_diffQ) == parseFloat(_diffQ));
+                console.log(_diffQ,md,parseInt(_diffQ) == parseFloat(_diffQ));
                 return parseInt(_diffQ) == parseFloat(_diffQ);
             }
 
