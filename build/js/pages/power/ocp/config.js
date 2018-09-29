@@ -153,6 +153,10 @@ define(function (require) {
                 }.bind(this))
             },
             onApplyClick: function () {
+                if(this.$refs["currentConfigTable"].errDataArr.length!=0){
+                    layer.msg("There are incorrect values in the table");
+                    return;
+                }
                 var data = [];
                 this.editData.forEach(function(item) {
                     this.datas[item.index][item.field] = item.value;
