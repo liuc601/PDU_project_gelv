@@ -14,34 +14,55 @@ define(function (require) {
             minDiffValue: function () { //给出当前分辨率的函数
                 var showType = this.rowData.showType;
                 var mdvTable = {
+                    /* 
+                        之后有时间的话，通过正则来进行判断
+                    */
+                    // 功率
                     "Inlet Active Power(kW)": 0.001,
                     "Active Power(kW)": 0.001,
                     "activePower": 0.001,
-
+                    
+                    // 功率因子
                     "Inlet Apparent Power(kVA)": 0.001,
                     "Apparent Power(kVA)": 0.001,
                     "apparentPower": 0.001,
-
+                    
+                    // 反正就是百分比
                     "Inlet Power Factor": 0.01,
                     "Power Factor(%)": 0.01,
                     "powerFactor": 0.01,
-
+                    
+                    // 反正active功率应该是
                     "Inlet Active Energy(kWh)": 0.001,
                     "Active Energy(kWh)": 0.001,
                     "activeEnergy": 0.001,
-
+                    
+                    // 频率
                     "Inlet Line Frequency(Hz)": 0.1,
                     "Line Frequency(Hz)": 0.1,
                     "frequency": 0.1,
-
+                    
+                    // 电流
                     "Inlet Current(A)": 0.1,
                     "Current(A)": 0.1,
                     "current": 0.1,
-
+                    "L1 Current(A)": 0.1,
+                    "L2 Current(A)": 0.1,
+                    "L3 Current(A)": 0.1,
+                    "N Current(A)": 0.1,
+                    
+                    // 电压
                     "Inlet Voltage(V)": 1,
                     "Voltage(V)": 1,
                     "voltage": 1,
-
+                    "L1-N Voltage(V)": 1,
+                    "L1-L2 Voltage(V)": 1,
+                    "L2-N Voltage(V)": 1,
+                    "L2-L3 Voltage(V)": 1,
+                    "L3-N Voltage(V)": 1,
+                    "L3-L1 Voltage(V)": 1,
+                    
+                    // 传感器
                     "Temperature": 0.1,
                     "Humidity(%RH)": 1
                 }
@@ -57,34 +78,53 @@ define(function (require) {
             hysteresisMaxValue: function () { //给出hysteresis的最大设置值,所有的最小设置值为0
                 var showType = this.rowData.showType;
                 var hysteresisMaxValue = {
+                    // 功率
                     "Inlet Active Power(kW)": 1,
                     "Active Power(kW)": 1,
                     "activePower": 1,
-
+                    
+                    // 功率因子
                     "Inlet Apparent Power(kVA)": 1,
                     "Apparent Power(kVA)": 1,
                     "apparentPower": 1,
-
+                    
+                    // 反正就是百分比
                     "Inlet Power Factor": 0.2,
                     "Power Factor(%)": 0.2,
                     "powerFactor": 0.2,
-
+                    
+                    // 反正active功率应该是
                     "Inlet Active Energy(kWh)": 1,
                     "Active Energy(kWh)": 1,
                     "activeEnergy": 1,
-
+                    
+                    // 频率
                     "Inlet Line Frequency(Hz)": 10,
                     "Line Frequency(Hz)": 10,
                     "frequency": 10,
-
+                    
+                    // 电流
                     "Inlet Current(A)": 10,
                     "Current(A)": 10,
                     "current": 10,
-
+                    "L1 Current(A)": 10,
+                    "L2 Current(A)": 10,
+                    "L3 Current(A)": 10,
+                    "N Current(A)": 10,
+                    
+                    // 电压
                     "Inlet Voltage(V)": 20,
                     "Voltage(V)": 20,
                     "voltage": 20,
+                    "L1-N Voltage(V)": 20,
+                    "L1-L2 Voltage(V)": 20,
+                    "L2-N Voltage(V)": 20,
+                    "L2-L3 Voltage(V)": 20,
+                    "L3-N Voltage(V)": 20,
+                    "L3-L1 Voltage(V)": 20,
+                    
 
+                    // 传感器
                     "Temperature": 50,
                     "Humidity(%RH)": 20
                 }
