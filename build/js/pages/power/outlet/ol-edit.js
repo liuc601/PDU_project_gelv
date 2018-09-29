@@ -762,7 +762,7 @@ define(function (require) {
                     } else if (type.indexOf('voltage') > -1) {
                         unit = 'V';
                         scale = 0;
-                        max = this.arrayToDecimal(response, "value", scale) * 2;
+                        max = this.arrayToDecimal(response, "value", scale) * 1.25;
                     } else {
                         return;
                     }
