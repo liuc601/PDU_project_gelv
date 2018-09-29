@@ -425,21 +425,24 @@ define(function (require) {
                                             layer.msg("No permission");
                                             return
                                         }
+                                        var r = confirm("Reset Energy?");
+                                        if (r) {
+                                            var layerTime = layer.load(2, {
+                                                shade: [0.1, '#fff'] //0.1透明度的白色背景
+                                            });
+                                            $.ajax({
+                                                type: 'post',
+                                                url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=cycle',
+                                                data: JSON.stringify([{
+                                                    id: this.model.id
+                                                }]),
+                                                contentType: 'application/json',
+                                                success: function (response) {
+                                                    layer.close(layerTime);
+                                                }
+                                            })
 
-                                        var layerTime = layer.load(2, {
-                                            shade: [0.1, '#fff'] //0.1透明度的白色背景
-                                        });
-                                        $.ajax({
-                                            type: 'post',
-                                            url: '/cgi-bin/luci/api/v1/outlet/ctrl?action=cycle',
-                                            data: JSON.stringify([{
-                                                id: this.model.id
-                                            }]),
-                                            contentType: 'application/json',
-                                            success: function (response) {
-                                                layer.close(layerTime);
-                                            }
-                                        })
+                                        }
                                     }
                                 }],
 
