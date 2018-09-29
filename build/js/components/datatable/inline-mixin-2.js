@@ -140,7 +140,7 @@ define(function (require) {
                                 return;
                             }
                             if (h < 0) {
-                                errStr = "Less than minim 0";
+                                errStr = "Less than minimum 0";
                                 return;
                             } else if (h > maxValueHysteresis) {
                                 errStr = "Over the maximum " + maxValueHysteresis;
@@ -152,7 +152,7 @@ define(function (require) {
                             }
                             // if (this.sub(val, h) < 0 && min>=0) {
                             if (this.sub(val, h) < min) {
-                                errStr = 'Lower Alarm - hysteresis must be greater or equal than min ' + min;
+                                errStr = 'Low Alarm - hysteresis must be greater or equal than min ' + min;
                                 return;
                             }
                             break;
