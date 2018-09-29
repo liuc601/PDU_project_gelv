@@ -160,6 +160,10 @@ define(function (require) {
         },
         methods: {
             onApplyClick: function () {
+                if(this.$refs["secConfigTable"].errDataArr.length!=0){
+                    layer.msg("There are incorrect values in the table");
+                    return;
+                }
                 var data = {
                     outlets: []
                 };
