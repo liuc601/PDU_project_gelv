@@ -301,7 +301,7 @@ define(function (require) {
                         legend: 'Outlet settings',
                         fields: [{
                             type: "switch",
-                            label: 'Locked / No Controll',
+                            label: 'Locked / Controll',
                             model: 'locked',
                             textOn: "On",
                             textOff: "Off",
