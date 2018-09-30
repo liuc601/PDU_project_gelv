@@ -27,6 +27,11 @@ define(function (require) {
                         title: 'Type'
                     },
                     {
+                        name: 'state',
+                        title: 'State',
+                        callback: 'stateRender',
+                    },
+                    {
                         name: 'current',
                         title: 'Current',
                         callback: 'currentRender',
@@ -81,6 +86,15 @@ define(function (require) {
                 // console.log(value, field, item);
                 return this.getStatusColor(item[field.name + "Status"], this.doValueDigit(field.unit, value, field) + ' A');
                 // return value + ' A';
+            },
+            stateRender: function (value, field, item) {
+                // console.log(value, field, item);
+                if (value == 85) {
+                    return "<span class='label label-danger'>Opened<span>";
+                    //return "<span class='label clr-red'>Opened<span>";
+                } else if(value == 170) {
+                    return "<span class='label clr-green'>Closed<span>";
+                }
             },
             setStatus: function (value) {
                 console.log("设置", value);

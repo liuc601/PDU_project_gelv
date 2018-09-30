@@ -601,12 +601,22 @@ define(function (require) {
                             break;
                     }
 
+                    if(response.primaryDns) {
+                        if(response.secondaryDns) {
+                            response.dns = response.primaryDns + ", " + response.secondaryDns;
+                        } else {
+                            response.dns = response.primaryDns;
+                        }
+                    } else if(response.secondaryDns) {
+                        response.dns = response.secondaryDns;
+                    }
+                    /*
                     if (response.dns) {
                         var dns = response.dns[0];
                         if (response.dns.length == 2)
                             dns = dns + ", " + response.dns[1];
                         response.dns = dns;
-                    }
+                    }*/
 
                     this.model = response;
                 }.bind(this))

@@ -49,13 +49,13 @@ define(function(require) {
                                 showTodayButton: true,
                                 showClose: true
                             }
-                        }, {
+                        },/* {
                             type: 'switch',
                             label: 'Auto Daylight Saving Time Adjustment',
                             model: 'autoDaylight',
                             textOn: 'Enabled',
                             textOff: 'Disabled',
-                        }, {
+                        },*/ {
                             type: 'switch',
                             label: 'Synchronize with NTP Server',
                             model: 'ntpenabled',

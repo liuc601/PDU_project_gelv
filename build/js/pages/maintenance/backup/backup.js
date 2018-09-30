@@ -52,6 +52,11 @@ define(function (require) {
         model: {
           fileDownload: '',
           fileUpload: '',
+          exclude: 0,
+          outletgroup: 0,
+          sensor: 0,
+          network: 0,
+          user: 0,
         },
         loaded: 0, // 已上传大小
         total: 0, // 总大小
@@ -60,22 +65,24 @@ define(function (require) {
         progressShow: false, // 是否显示进度条            
         schema: {
           groups: [{
-            legend: 'Backup system configuration file',
+            legend: 'Export system configuration file',
             fields: [{
               label: "System configuration file",
               model: "fileDownload",
               buttons: [{
                 classes: 'btn btn-success btn-sm',
-                label: 'Backup',
+                label: 'Export',
                 onclick: function (model, field) {
                   //this.downloadConfig();
                   var layerTime = layer.load(2, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                   });
 
-                  var url = '/cgi-bin/luci/api/v1/download?type=config';
+                  var url = '/cgi-bin/luci/api/v1/maintenance/export?type=config';
                   var xhr = new XMLHttpRequest();
-                  xhr.open('GET', url, true); // 也可以使用POST方式，根据接口
+                  xhr.open('POST', url, true); // 也可以使用POST方式，根据接口
+                  xhr.setRequestHeader("Content-type","application/json;charset=utf-8");
+                  //xhr.setRequestHeader("Content-type", "application/json");
                   xhr.responseType = "blob"; // 返回类型blob
 
                   // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
@@ -98,7 +105,7 @@ define(function (require) {
                                filename = matches[1].replace(/['"]/g, '');
                              }
                          }*/
-                        a.download = 'backup_config_' + time + '.tar.gz';
+                        a.download = 'backup_config_' + time + '.txt';
                         a.href = e.target.result;
                         $("body").append(a); // 修复firefox中无法触发click
                         a.click();
@@ -109,13 +116,79 @@ define(function (require) {
                       layer.close(layerTime);
                     });
                   };
-                  // 发送ajax请求
-                  xhr.send()
+
+                  if(model.exclude == 0)
+                  {
+                    // 发送ajax请求
+                    xhr.send();
+                  }
+                  else
+                  {
+                    var filters = new Array();
+                    if(model.outletgroup==1)
+                      filters.push("outletgroup");
+                    if(model.sensor==1)
+                      filters.push("sensor");
+                    if(model.network==1)
+                      filters.push("network");
+                    if(model.user==1)
+                      filters.push("user");
+                    
+                    if(filters.length > 0)
+                    {
+                      var jsonText = JSON.stringify(filters);
+                      var blob = new Blob([jsonText],{type : 'application/json'});
+ 
+                      // 发送ajax请求
+                      xhr.send(jsonText);
+                    }
+                    else
+                    {
+                      xhr.send();
+                    }
+                    
+                  }
+
+                  //xhr.send()
                 }
               }]
+            }, {
+              type: 'switch',
+              label: 'Exclude the following',
+              model: 'exclude',
+              textOn: 'Enabled',
+              textOff: 'Disabled'
+            }, {
+                type: 'checkbox',
+                label: 'Outlet group config',
+                model: 'outletgroup',
+                visible: function (model) {
+                    return model && model.exclude;
+                }
+            }, {
+                type: 'checkbox',
+                label: 'Sensor config',
+                model: 'sensor',
+                visible: function (model) {
+                  return model && model.exclude;
+                }
+            }, {
+                type: 'checkbox',
+                label: 'Network config',
+                model: 'network',
+                visible: function (model) {
+                    return model && model.exclude;
+                }
+            }, {
+                type: 'checkbox',
+                label: 'User config',
+                model: 'user',
+                visible: function (model) {
+                    return model && model.exclude;
+                }
             }]
           }, {
-            legend: 'Restore system configuration',
+            legend: 'Import system configuration',
             fields: [{
               type: 'input',
               inputType: 'text',
@@ -137,6 +210,9 @@ define(function (require) {
         }
       };
     },
+    mounted:function() {
+      this.clearSwitchControlLabel();//消除switch按钮的事件区域过大的问题
+    },    
     methods: {
       selectedShow: function (e) {
         this.model.fileUpload = e.target.files[0];
@@ -165,7 +241,7 @@ define(function (require) {
 
               if (xhr.status === 200) {
                 //alert('Upgrade successful;)');
-                layer.msg(';) Restore successful, Please wait for system rebooting...', {
+                layer.msg(';) Import successful, Please wait for system rebooting...', {
                   time: 0, //不自动关闭
                   btn: ['OK'],
                   yes: function (index) {
@@ -174,7 +250,7 @@ define(function (require) {
                 });
               } else {
                 //alert('Upgrade Failed:(');
-                layer.msg('Restore Failed:(', {
+                layer.msg('Import Failed:(', {
                   time: 0, //不自动关闭
                   btn: ['OK'],
                   yes: function(index ) {
@@ -197,14 +273,14 @@ define(function (require) {
             this.progress = progress;
           }.bind(this);
 
-          xhr.open('post', '/cgi-bin/luci/api/v1/upload?type=config');
+          xhr.open('post', '/cgi-bin/luci/api/v1/maintenance/import?type=config');
           xhr.send(formData);
         } else {
           alert('Please select file~');
         }
       },
       onApplyClick: function () {
-        layer.msg('Confirm to Restore?', {
+        layer.msg('Confirm to import?', {
           time: 0, //不自动关闭
           btn: ['yes', 'no'],
           yes: function(index) {

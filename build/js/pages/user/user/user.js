@@ -70,7 +70,7 @@ define(function (require) {
                         name: 'name',
                         title: 'Name'
                     }, {
-                        name: '__component:inline-select:accessType',
+                        name: '__component:inline-select:accessLevel',
                         title: 'Access Type',
                         __normalize: function (obj) {
                             obj.__options = [
@@ -119,7 +119,10 @@ define(function (require) {
 
                 /* 用户权限设置数据 */
                 accessLevelModel: {//用户权限
-                    accessLevel: 'User'
+                    accessLevel: { name: "User", value: 1 },
+                    console: 1,
+                    ssh: 1,
+                    web: 1
                 },
 
                 /* 用户一些配置的选项列表 */
@@ -182,6 +185,18 @@ define(function (require) {
                         label: 'Telephone Number',
                         model: 'phoneNo'
                     }, {
+                        type: 'input',
+                        inputType: 'number',
+                        label: 'Web Session Timeout',
+                        model: 'webSessTimeout',
+                        hint: 'minutes'
+                    }, {
+                        type: 'input',
+                        inputType: 'number',
+                        label: 'Cli Session Timeout',
+                        model: 'cliSessTimeout',
+                        hint: 'minutes'
+                    }, {
                         type: 'switch',
                         label: 'Status',
                         model: 'status',
@@ -228,8 +243,8 @@ define(function (require) {
                         model: 'accessLevel',
                         values: this.accessLevelList,
                         onChanged: (model) => {//当数据变化的时候，向后台请求数据，更新当前的状态
-                            if (model.accessLevel == undefined)
-                                return;
+                            //if (model.accessLevel == undefined)
+                            //    return;
                             this.userModel.accessLevel = model.accessLevel.value;
                             if(this.userModel.accessLevel == 0)
                                 this.showAccessObjList = false;
@@ -441,7 +456,8 @@ define(function (require) {
                 this.userModel.pressUnit = pressureUnit.value;
 
                 this.userModel.status = 1;
-
+                this.userModel.webSessTimeout=15;
+                this.userModel.cliSessTimeout=15;
                 this.showAccessObjList = true;
 
                 //this.userModel.userName = "";

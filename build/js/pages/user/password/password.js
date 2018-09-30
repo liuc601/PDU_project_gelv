@@ -22,14 +22,17 @@ define(function (require) {
             legend: 'Enter current and new password',
             fields: [{
               type: 'input',
+              inputType: 'password',
               label: 'Current Password',
               model: 'oldPassword'
             }, {
               type: 'input',
+              inputType: 'password',
               label: 'New Password',
               model: 'newPassword'
             }, {
               type: 'input',
+              inputType: 'password',
               label: 'Verify New Password',
               model: 'verifyNewPassword'
             }]
@@ -79,7 +82,9 @@ define(function (require) {
         // });
       },
       onCancelClick: function () {
-
+        this.model.oldPassword='';
+        this.model.newPassword='';
+        this.model.verifyNewPassword= '';
       },
       passwordChange:function(obj) {//obj,用户的数据
         console.log(obj);

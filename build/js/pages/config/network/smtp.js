@@ -13,6 +13,7 @@ define(function (require) {
             return {
                 model: {
                     host: '',
+                    sslEnable: false,
                     port: 25,
                     authType: '',
                     authUser: '',
@@ -51,6 +52,10 @@ define(function (require) {
                             label: 'SMTP Host',
                             model: 'host',
                         }, {
+                            type: 'checkbox',
+                            label: 'SSL Enable',
+                            model: 'sslEnable'
+                        }, {
                             type: 'input',
                             inputType: 'number',
                             label: 'SMTP Port',
@@ -77,7 +82,7 @@ define(function (require) {
                             model: 'authUser'
                         }, {
                             type: 'input',
-                            inputType: 'text',
+                            inputType: 'password',
                             label: 'SMTP Password',
                             model: 'authPwd'
                         }, {

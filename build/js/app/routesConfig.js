@@ -71,20 +71,20 @@ define(function () {
                 title: 'Syslog'
             }
         },
-        {
-            /*
-            这个是按照要求添加的无线网卡管理菜单，原本就存在一个无线网卡管理，
-            但是不清楚是不是原来的，所以原本的wlan不去动它，直接复制一份，重新修改
-            */
-            path: 'wirelessLan',
-            component: function (resolve) {
-                require(['pages/config/network/wireless-lan'], resolve);
-            },
-            meta: {
-                access: 3,
-                title: 'wirelessLan'
-            }
-        }
+        // {
+        //     /*
+        //     这个是按照要求添加的无线网卡管理菜单，原本就存在一个无线网卡管理，
+        //     但是不清楚是不是原来的，所以原本的wlan不去动它，直接复制一份，重新修改
+        //     */
+        //     path: 'wirelessLan',
+        //     component: function (resolve) {
+        //         require(['pages/config/network/wireless-lan'], resolve);
+        //     },
+        //     meta: {
+        //         access: 3,
+        //         title: 'wirelessLan'
+        //     }
+        // }
         /*
         {
             path: 'http',

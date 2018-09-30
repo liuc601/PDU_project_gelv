@@ -80,7 +80,7 @@ define(function(require) {
                     if(response.port)
                         this.model.port = response.port;
                     if(response.logLevel)
-                        this.model.logLevel = response.logLevel;
+                        this.model.logLevel = response.logLevel + 1;
                     if(response.protocol)
                         this.model.protocol = response.protocol;
 
@@ -95,6 +95,7 @@ define(function(require) {
                 var data = this.model;
                 if(data.port == 0 || data.port >= 65535)
                     data.port = 514;
+                data.logLevel = data.logLevel - 1;
                 $.ajax({
                     type: 'PUT',
                     dataType: 'json',

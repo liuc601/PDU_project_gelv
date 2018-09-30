@@ -226,8 +226,7 @@ define(function (require) {
     					break;				
     			} 
 
-				// xhr.open('GET', url, true);    // 也可以使用POST方式，根据接口
-				xhr.open('POST', url, true);    // 也可以使用POST方式，根据接口
+				xhr.open('GET', url, true);    // 也可以使用POST方式，根据接口
 				xhr.responseType = "blob";  // 返回类型blob
 				
 				// 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑

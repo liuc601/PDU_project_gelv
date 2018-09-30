@@ -37,13 +37,7 @@ define(function (require) {
 					type:'',
 					id: ''
 				},
-				typeList: [
-					{ name: "Unit", value: "unit" },
-					{ name: "Inlet Cord", value: "cord" },
-					{ name: "Over-Current Protectors", value: "ocp" },
-					{ name: "Outlet", value: "outlet" },
-					{ name: "Sensor", value: "sensor" },
-				],
+				typeList: [],
 				idList: [],
 				datas: [],
 				formOptions: {
@@ -91,6 +85,20 @@ define(function (require) {
                 shade: [0.1,'#fff'] //0.1透明度的白色背景
             });
 			console.log(this.model,this.model.type,this.typeList);
+
+			this.typeList.push({ name: "Unit", value: "unit" });
+			this.typeList.push({ name: "Inlet Cord", value: "cord" });
+
+			if (this.$store.getters.deviceCap.ocpTotal) {
+				this.typeList.push({ name: "Over-Current Protectors", value: "ocp" });
+			}
+
+			if (this.$store.getters.deviceCap.outletTotal) {
+				this.typeList.push({ name: "Outlet", value: "outlet" });
+			}
+
+			this.typeList.push({ name: "Sensor", value: "sensor" });
+
 			this.model.type = this.typeList[0];
 			this.getHistoryTypeIdList(layerTime);
 		},

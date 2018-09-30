@@ -33,7 +33,7 @@ define(function(require) {
                         model: 'host',
                     }, {
                         type: 'input',
-                        inputType: 'text',
+                        inputType: 'number',
                         label: 'External system log server port',
                         model: 'port',
                         hint: 'Default: 514'
@@ -80,7 +80,7 @@ define(function(require) {
                     if(response.port)
                         this.model.port = response.port;
                     if(response.logLevel)
-                        this.model.logLevel = response.logLevel;
+                        this.model.logLevel = response.logLevel + 1;
                     if(response.protocol)
                         this.model.protocol = response.protocol;
 
@@ -92,9 +92,15 @@ define(function(require) {
                 }.bind(this))        
             },
             onApplyClick: function() {
-                var data = this.model;
+                var data = {};
+                data.host = this.model.host;
+                data.port = this.model.port;
+                data.logLevel = this.model.logLevel - 1;
+                data.protocol = this.model.protocol;
+
                 if(data.port == 0 || data.port >= 65535)
                     data.port = 514;
+
                 $.ajax({
                     type: 'PUT',
                     dataType: 'json',

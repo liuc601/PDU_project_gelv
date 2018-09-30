@@ -130,12 +130,25 @@ define(function (require) {
                 statusData: {
                     activePower: 0,
                     activePowerStatus: 0,
+
+                    apparentPower:0,
                     apparentPowerStatus: 0,
+
+                    powerFactor:0,
                     powerFactorStatus: 0,
-                    // activeEnergyStatus: 0,
+
+                    activeEnergy:0,
                     activeEnergyStatus: 77,
+                    // activeEnergyStatus: 0,
+
+                    frequency:50.0,
                     frequencyStatus: 0,
-                    outOfBalanceStatus: 0
+
+                    outOfBalance:0,
+                    outOfBalanceStatus: 0,
+
+                    voltageDeviation:0,
+                    voltageDeviationStatus:0,
                 },
                 datas: null,
                 lines: [{
@@ -178,8 +191,8 @@ define(function (require) {
                 var val = [{
                         title: 'Active Power',
                         // value: this.statusData.activePower,//标记
-                        value: this.statusData.activePower, //标记
-                        status: this.statusData.activePowerStatus,
+                        value: _this.statusData.activePower, //标记
+                        status: _this.statusData.activePowerStatus,
                         unit: 'kW',
                         prompt: 'Total Active Power',
                         color: function (row, field) {
@@ -191,8 +204,8 @@ define(function (require) {
                     },
                     {
                         title: 'Apparent Power',
-                        value: this.statusData.apparentPower,
-                        status: this.statusData.apparentPowerStatus,
+                        value: _this.statusData.apparentPower,
+                        status: _this.statusData.apparentPowerStatus,
                         unit: 'kVA',
                         prompt: 'Total Apparent Power',
                         color: function () {
@@ -204,8 +217,8 @@ define(function (require) {
                     },
                     {
                         title: 'Power Factor',
-                        value: this.statusData.powerFactor,
-                        status: this.statusData.powerFactorStatus,
+                        value: _this.statusData.powerFactor,
+                        status: _this.statusData.powerFactorStatus,
                         prompt: 'Total Power Factor',
                         color: function () {
                             return _this.doColor(this.status);
@@ -216,8 +229,8 @@ define(function (require) {
                     },
                     {
                         title: 'Active Energy',
-                        value: this.statusData.activeEnergy,
-                        status: this.statusData.activeEnergyStatus,
+                        value: _this.statusData.activeEnergy,
+                        status: _this.statusData.activeEnergyStatus,
                         unit: 'kWh',
                         prompt: 'Total Power Consumption',
                         color: function () {
@@ -229,8 +242,8 @@ define(function (require) {
                     },
                     {
                         title: 'Frequency',
-                        value: this.statusData.frequency == undefined ? 0.0 : this.statusData.frequency,
-                        status: this.statusData.frequencyStatus,
+                        value: _this.statusData.frequency,
+                        status: _this.statusData.frequencyStatus,
                         unit: 'Hz',
                         prompt: 'Line Frequency',
                         color: function () {
@@ -244,8 +257,8 @@ define(function (require) {
                 if (this.$store.getters.deviceCap.capability == 0) {
                     var tmp = {
                         title: 'Voltage deviation',
-                        value: this.statusData.voltageDeviation == undefined ? 0 : this.statusData.voltageDeviation,
-                        status: this.statusData.voltageDeviationStatus,
+                        value: _this.statusData.voltageDeviation,
+                        status: _this.statusData.voltageDeviationStatus,
                         unit: '%',
                         prompt: 'Nominal voltage deviation factor',
                         color: function () {
@@ -261,8 +274,8 @@ define(function (require) {
                 } else {
                     var tmp = {
                         title: 'Unbalanced Current',
-                        value: this.statusData.outOfBalance,
-                        status: this.statusData.outOfBalanceStatus,
+                        value: _this.statusData.outOfBalance,
+                        status: _this.statusData.outOfBalanceStatus,
                         unit: '%',
                         prompt: '3-Phase Unbalanced Current',
                         color: function () {

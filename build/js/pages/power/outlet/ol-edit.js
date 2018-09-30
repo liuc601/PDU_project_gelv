@@ -301,7 +301,7 @@ define(function (require) {
                         legend: 'Outlet settings',
                         fields: [{
                             type: "switch",
-                            label: 'Locked / Controll',
+                            label: 'Locked / No Control',
                             model: 'locked',
                             textOn: "On",
                             textOff: "Off",
@@ -335,7 +335,7 @@ define(function (require) {
                             model: 'name',
                         }, {
                             type: "input",
-                            inputType: 'text',
+                            inputType: 'number',
                             label: 'Extra On Delay(sec)',
                             model: 'delay',
                         }, {
@@ -425,7 +425,7 @@ define(function (require) {
                                             layer.msg("No permission");
                                             return
                                         }
-                                        var r = confirm("Reset Energy?");
+                                        var r = confirm("Confirm to cycle?");
                                         if (r) {
                                             var layerTime = layer.load(2, {
                                                 shade: [0.1, '#fff'] //0.1透明度的白色背景

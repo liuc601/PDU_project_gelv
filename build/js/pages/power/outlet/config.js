@@ -118,13 +118,13 @@ define(function (require) {
                             textOff: 'Disabled'
                         },*/{
                             type: 'input',
-                            inputType: 'text',
+                            inputType: 'number',
                             label: 'Sequence Interval',
                             model: 'sequenceInterval',
                             hint: 'Unit: Seconds',
                         }, {
                             type: 'input',
-                            inputType: 'text',
+                            inputType: 'number',
                             label: 'Cycle Delay',
                             model: 'cycleDelay',
                             hint: 'Unit: Seconds',

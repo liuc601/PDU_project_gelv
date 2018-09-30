@@ -223,9 +223,9 @@ define(function (require) {
                         data.index = 1;
                         if (response.type == 1) {//温度
                             this.chartOptions.scales.yAxes[0].ticks = {
-                                beginAtZero: true,
-                                max: 75,
-                                min: -20,
+                                beginAtZero: false,
+                                suggestedMax: 75,
+                                suggestedMin: -20,
                             }
                             data.typeName = "Temperature" + "(" + this.tempUnit + ")";
                             data.showType = "Temperature";
