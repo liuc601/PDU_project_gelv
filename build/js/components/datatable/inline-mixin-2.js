@@ -50,6 +50,7 @@ define(function (require) {
                     "L2 Current(A)": 0.1,
                     "L3 Current(A)": 0.1,
                     "N Current(A)": 0.1,
+                    "Inlet Unbalanced Current(%)": 0.1,
                     
                     // 电压
                     "Inlet Voltage(V)": 1,
@@ -111,6 +112,7 @@ define(function (require) {
                     "L2 Current(A)": 10,
                     "L3 Current(A)": 10,
                     "N Current(A)": 10,
+                    "Inlet Unbalanced Current(%)": 10,
                     
                     // 电压
                     "Inlet Voltage(V)": 20,
