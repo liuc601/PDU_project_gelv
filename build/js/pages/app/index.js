@@ -130,7 +130,7 @@ define(function (require) {
                 // that.sysinfo = Object.assign({}, response);
                 this.$store.commit("setSysinfo", response);
             }.bind(this))
-            // this.globalClickEvent(); //修复服务器登陆信息超时时，用户在操作的时候，仍然强制退出的问题
+            this.globalClickEvent(); //修复服务器登陆信息超时时，用户在操作的时候，仍然强制退出的问题
         },
         computed: {
             colHeight: function () {
@@ -191,7 +191,6 @@ define(function (require) {
                 }
             },
             globalClickEvent: function () { //全局点击事件
-                console.log(this.$store.getters.deviceCap);
                 this.autoOutTimer = setTimeout(function () {
                     this.loginOut();
                 }.bind(this), 5000)
@@ -199,7 +198,7 @@ define(function (require) {
                     clearTimeout(this.autoOutTimer);
                     this.autoOutTimer = setTimeout(function () {
                         this.loginOut();
-                    }.bind(this), 5000)
+                    }.bind(this), this.$store.getters.deviceCap.timeout*60*1000)
                 }.bind(this)
             }
         },
