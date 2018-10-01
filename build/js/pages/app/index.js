@@ -193,11 +193,13 @@ define(function (require) {
             globalClickEvent: function () { //全局点击事件
                 this.autoOutTimer = setTimeout(function () {
                     this.loginOut();
-                }.bind(this), 5000)
+                    clearTimeout(this.autoOutTimer);
+                }.bind(this), this.$store.getters.deviceCap.timeout*60*1000)
                 document.onclick = function () {
                     clearTimeout(this.autoOutTimer);
                     this.autoOutTimer = setTimeout(function () {
                         this.loginOut();
+                        clearTimeout(this.autoOutTimer);
                     }.bind(this), this.$store.getters.deviceCap.timeout*60*1000)
                 }.bind(this)
             }
