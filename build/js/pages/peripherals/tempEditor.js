@@ -270,6 +270,7 @@ define(function (require) {
                         this.datas = [];
                         setTimeout(function() {
                             this.datas.push(data);
+                            this.$refs["sensorConfig"].errDataArr=[];
                             layer.close(layerTime);
                         }.bind(this));
 

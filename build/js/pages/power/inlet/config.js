@@ -409,6 +409,8 @@ define(function (require) {
                     }.bind(this));
                     this.datas=[];
                     setTimeout(function() {
+                        //当前页面重新请求数据的时候，需要重置错误数组
+                        this.$refs["powerInletConfig"].errDataArr=[];
                         this.datas=cacheData;
                         // console.log(this.datas);
                         layer.close(layerTime);

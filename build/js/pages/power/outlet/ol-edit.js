@@ -937,6 +937,7 @@ define(function (require) {
                     this.threshDatas = [];
                     setTimeout(function () {
                         this.threshDatas = response.thresholds;
+                        this.$refs["powerOutletsEdit"].errDataArr
                         layer.close(layerTime);
                         this.clearSwitchControlLabel(); //消除switch按钮的事件区域过大的问题
                     }.bind(this));

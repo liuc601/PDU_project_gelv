@@ -205,6 +205,9 @@ define(function (require) {
                             if (this.sub(val, h) < highWarning) {
                                 errStr = "highAlarm - hysteresis must be greater or equal to highWarning"
                             }
+                            if (this.sub(val, h) == highWarning) {
+                                errStr = "value must be not equal"
+                            }
                             break;
                         case 'lowWarning':
                             if (lowWarning == '-') {
@@ -212,6 +215,9 @@ define(function (require) {
                             }
                             if (this.sub(val, 2 * h) < lowWarning) {
                                 errStr = field + " - 2 * hysteresis must be greater or equal to lowWarning"
+                            }
+                            if (this.sub(val, 2 * h) == lowWarning) {
+                                errStr = "value must be not equal"
                             }
                             break;
                         case 'lowAlarm':
@@ -224,10 +230,16 @@ define(function (require) {
                                 if (this.sub(val, 2 * h) < lowAlarm) {
                                     errStr = field + " -  2 * hysteresis must be greater or equal to lowAlarm"
                                 }
+                                if (this.sub(val, 2 * h) == lowAlarm) {
+                                    errStr = "value must be not equal"
+                                }
 
                             } else {
                                 if (this.sub(val, h) < lowAlarm) {
                                     errStr = field + " -  hysteresis must be greater or equal to lowAlarm"
+                                }
+                                if (this.sub(val, h) == lowAlarm) {
+                                    errStr = "value must be not equal"
                                 }
 
                             }
@@ -262,6 +274,9 @@ define(function (require) {
                                 }
                                 errStr = field + " + hysteresis must be less than or equal to lowWarning"
                             }
+                            if (this.add(val, h) == lowWarning) {
+                                errStr = "value must be not equal"
+                            }
                             break;
                         case 'highWarning':
                             if (highWarning == '-') {
@@ -279,6 +294,9 @@ define(function (require) {
                                     return
                                 }
                                 errStr = field + " + 2 * hysteresis must be less than or equal to highWarning"
+                            }
+                            if (this.add(val, 2 * h) == highWarning) {
+                                errStr = "value must be not equal"
                             }
                             break;
                         case 'highAlarm':
@@ -301,6 +319,9 @@ define(function (require) {
                                     }
                                     errStr = field + " +  2*hysteresis must be less than or equal to highAlarm"
                                 }
+                                if (this.add(val, 2 * h) == highAlarm) {
+                                    errStr = "value must be not equal"
+                                }
                             } else {
                                 if (this.add(val, h) > highAlarm) {
                                     if (nowField == 'hysteresis') { //只是对要显示的名字做判断和处理
@@ -308,6 +329,9 @@ define(function (require) {
                                         return
                                     }
                                     errStr = field + " +  hysteresis must be less than or equal to highAlarm"
+                                }
+                                if (this.add(val, h) == highAlarm) {
+                                    errStr = "value must be not equal"
                                 }
                             }
                             break;

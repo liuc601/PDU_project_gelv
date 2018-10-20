@@ -148,6 +148,7 @@ define(function (require) {
                     this.datas = [];
                     setTimeout(function() {
                         this.datas = response;
+                        this.$refs["currentConfigTable"].errDataArr=[];
                         layer.close(layerTime);
                     }.bind(this));
                 }.bind(this))
