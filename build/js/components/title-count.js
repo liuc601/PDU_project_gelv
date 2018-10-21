@@ -37,12 +37,7 @@ define(function(require) {
                     return
                 }
                 if(!str)return;
-                // console.log(item,this.$store.getters.usrAccessLevel);
-                // return;
-                // if(item.title=="Unutilized Outlets"&&this.$store.getters.usrAccessLevel<3){
-                //     //权限不够，不允许弹窗
-                //     return
-                // }
+                if (item.title=="Unutilized Outlets"&&this.$store.getters.deviceCap.outletTotal == 0)return;
                 this.$router.push(str);
             },
 
