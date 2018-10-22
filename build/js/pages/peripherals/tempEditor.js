@@ -199,6 +199,7 @@ define(function (require) {
             },        
             init: function () {//编辑界面的传感器初始化
                 this.choiseData = [];
+                this.editData=[];
                 var layerTime = layer.load(2, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                 });

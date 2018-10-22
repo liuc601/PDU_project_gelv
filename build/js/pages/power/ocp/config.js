@@ -113,7 +113,7 @@ define(function (require) {
         methods: {
             init:function() {
                 this.choiseData = [];
-                
+                this.editData=[];
                 var layerTime=layer.load(2, {
                     shade: [0.1,'#fff'] //0.1透明度的白色背景
                 });
