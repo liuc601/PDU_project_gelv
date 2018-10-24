@@ -72,7 +72,7 @@ define(function (require) {
                 } else if (this.field == "name") {
                     return 1
                 } else {
-                    console.log("没有找到当前的分辨率    ", showType);
+                    // console.log("没有找到当前的分辨率    ", showType);
                     return 0.000001
                 }
             },
@@ -133,7 +133,7 @@ define(function (require) {
                 if (hysteresisMaxValue[showType]) {
                     return hysteresisMaxValue[showType]
                 } else {
-                    console.log("hysteresisMaxValue    ", showType);
+                    // console.log("hysteresisMaxValue    ", showType);
                     return 10
                 }
             },
@@ -205,7 +205,7 @@ define(function (require) {
                             if (this.sub(val, h) < highWarning) {
                                 errStr = "highAlarm - hysteresis must be greater or equal to highWarning"
                             }
-                            if (this.sub(val, h) == highWarning) {
+                            if (val== highWarning) {
                                 errStr = "value must be not equal"
                             }
                             break;
@@ -216,7 +216,7 @@ define(function (require) {
                             if (this.sub(val, 2 * h) < lowWarning) {
                                 errStr = field + " - 2 * hysteresis must be greater or equal to lowWarning"
                             }
-                            if (this.sub(val, 2 * h) == lowWarning) {
+                            if (val == lowWarning) {
                                 errStr = "value must be not equal"
                             }
                             break;
@@ -230,7 +230,7 @@ define(function (require) {
                                 if (this.sub(val, 2 * h) < lowAlarm) {
                                     errStr = field + " -  2 * hysteresis must be greater or equal to lowAlarm"
                                 }
-                                if (this.sub(val, 2 * h) == lowAlarm) {
+                                if (val == lowAlarm) {
                                     errStr = "value must be not equal"
                                 }
 
@@ -238,7 +238,7 @@ define(function (require) {
                                 if (this.sub(val, h) < lowAlarm) {
                                     errStr = field + " -  hysteresis must be greater or equal to lowAlarm"
                                 }
-                                if (this.sub(val, h) == lowAlarm) {
+                                if (val == lowAlarm) {
                                     errStr = "value must be not equal"
                                 }
 
@@ -274,7 +274,7 @@ define(function (require) {
                                 }
                                 errStr = field + " + hysteresis must be less than or equal to lowWarning"
                             }
-                            if (this.add(val, h) == lowWarning) {
+                            if (val == lowWarning) {
                                 errStr = "value must be not equal"
                             }
                             break;
@@ -295,7 +295,7 @@ define(function (require) {
                                 }
                                 errStr = field + " + 2 * hysteresis must be less than or equal to highWarning"
                             }
-                            if (this.add(val, 2 * h) == highWarning) {
+                            if (val == highWarning) {
                                 errStr = "value must be not equal"
                             }
                             break;
@@ -319,7 +319,7 @@ define(function (require) {
                                     }
                                     errStr = field + " +  2*hysteresis must be less than or equal to highAlarm"
                                 }
-                                if (this.add(val, 2 * h) == highAlarm) {
+                                if (val == highAlarm) {
                                     errStr = "value must be not equal"
                                 }
                             } else {
@@ -330,7 +330,7 @@ define(function (require) {
                                     }
                                     errStr = field + " +  hysteresis must be less than or equal to highAlarm"
                                 }
-                                if (this.add(val, h) == highAlarm) {
+                                if (val == highAlarm) {
                                     errStr = "value must be not equal"
                                 }
                             }
