@@ -1,7 +1,0 @@
-<div class="row tile_count">
-    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" v-for="item in items" @click="pushRouter(item.router,item)" style="cursor:pointer">
-        <span class="count_top"><i :class="item.icon" v-if="item.icon"></i> {{item.title}}</span>
-        <div class="count" :class="item.color('normal', item.value)">{{item.getValue(item.unit,item.value,item)}} <span class="unit" v-if="item.unit">{{item.unit}}</span></div>
-        <span class="count_bottom"><i :class="item.color('add', item.value1)"><i :class="item.icon1" v-if="item.icon1"></i>{{item.value1}} </i> {{item.prompt}}</span>
-    </div>
-</div>

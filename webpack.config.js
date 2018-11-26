@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const config = {
     entry: __dirname + "/src/index.js", //配置入口文件
     output: {
-        path: __dirname + "/build", //打包文件的输出文件夹
+        path: __dirname + "/web", //打包文件的输出文件夹
         filename: "build.js" //打包文件的名字
     },
     devServer: {
@@ -12,8 +12,8 @@ const config = {
         // host: "127.0.0.1",
         useLocalIp: true,//允许使用本地ip打开
         open: false, //是否打开浏览器，
-        contentBase: "./build",
-        publicPath: "./build",//这个目录下的文件在浏览器中可以直接访问
+        contentBase: "./web",
+        publicPath: "./web",//这个目录下的文件在浏览器中可以直接访问
         /* index: "index", //可以修改索引文件名
         openPage: 'index.html',//浏览打开的时候，默认访问的链接地址 */
         index: "portal", //可以修改索引文件名
